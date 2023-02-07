@@ -1,5 +1,5 @@
-import 'package:my_trial_project/resources/resources.dart';
 import 'package:flutter/material.dart';
+import 'package:my_trial_project/resources/resources.dart';
 
 class MovieDetailsMainScreenCastWidget extends StatelessWidget {
   const MovieDetailsMainScreenCastWidget({Key? key}) : super(key: key);
@@ -36,8 +36,7 @@ class MovieDetailsMainScreenCastWidget extends StatelessWidget {
                         color: Colors.white,
                         border:
                             Border.all(color: Colors.black.withOpacity(0.2)),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(10)),
+                        borderRadius: const BorderRadius.all(Radius.circular(10)),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.1),
@@ -47,8 +46,7 @@ class MovieDetailsMainScreenCastWidget extends StatelessWidget {
                         ],
                       ),
                       child: ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(8)),
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
                         clipBehavior: Clip.hardEdge,
                         child: Column(
                           children: [

@@ -1,15 +1,15 @@
 import 'package:my_trial_project/resources/resources.dart';
-import 'package:my_trial_project/ui/widgets/elements/radial_percent_widget.dart';
+import 'package:my_trial_project/tools/elements/radial_percent_widget.dart';
 import 'package:flutter/material.dart';
 
-class NewsWidgetPopular extends StatefulWidget {
-  const NewsWidgetPopular({Key? key}) : super(key: key);
+class NewsWidgetFreeToWatch extends StatefulWidget {
+  const NewsWidgetFreeToWatch({Key? key}) : super(key: key);
 
   @override
-  _NewsWidgetPopularState createState() => _NewsWidgetPopularState();
+  _NewsWidgetFreeToWatchState createState() => _NewsWidgetFreeToWatchState();
 }
 
-class _NewsWidgetPopularState extends State<NewsWidgetPopular> {
+class _NewsWidgetFreeToWatchState extends State<NewsWidgetFreeToWatch> {
   final _catrgory = 'movies';
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class _NewsWidgetPopularState extends State<NewsWidgetPopular> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'What`s Popular',
+                'Free To Watch',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
               ),
               DropdownButton<String>(
@@ -32,8 +32,6 @@ class _NewsWidgetPopularState extends State<NewsWidgetPopular> {
                   const DropdownMenuItem(
                       value: 'movies', child: Text('Movies')),
                   const DropdownMenuItem(value: 'tv', child: Text('TV')),
-                  const DropdownMenuItem(
-                      value: 'tvShows', child: Text('TVShows')),
                 ],
               ),
             ],

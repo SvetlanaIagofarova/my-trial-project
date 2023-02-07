@@ -1,7 +1,7 @@
-import 'package:my_trial_project/ui/widgets/movie_list/movie_list_widget.dart';
-import 'package:my_trial_project/ui/widgets/news/new_widget.dart';
-import 'package:my_trial_project/ui/widgets/tv_show_list/tv_show_list_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:my_trial_project/ui/views/movie_list/movie_list_widget.dart';
+import 'package:my_trial_project/ui/views/news/news_widget.dart';
+import 'package:my_trial_project/ui/views/tv_show_list/tv_show_list_widget.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -25,19 +25,13 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('TMDB'),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search),
-          )
-        ],
       ),
       body: IndexedStack(
         index: _selectedTab,
         children: [
           const NewsWidget(),
-          MovieListWidget(),
-          TWShowListWidget(),
+          const MovieListWidget(),
+          const TVShowListWidget(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(

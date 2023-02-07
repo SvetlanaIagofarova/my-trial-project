@@ -1,11 +1,11 @@
-import 'package:my_trial_project/ui/widgets/movie_details/movie_details_main_info_widget.dart';
-import 'package:my_trial_project/ui/widgets/movie_details/movie_details_main_screen_cast_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:my_trial_project/ui/views/movie_details/movie_details_main_info_widget.dart';
+import 'package:my_trial_project/ui/views/movie_details/movie_details_main_screen_cast_widget.dart';
 
 class MovieDetailsWidget extends StatefulWidget {
   final int movieId;
 
-  MovieDetailsWidget({
+  const MovieDetailsWidget({
     Key? key,
     required this.movieId,
   }) : super(key: key);

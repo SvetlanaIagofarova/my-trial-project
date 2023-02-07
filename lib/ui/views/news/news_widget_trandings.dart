@@ -1,5 +1,5 @@
 import 'package:my_trial_project/resources/resources.dart';
-import 'package:my_trial_project/ui/widgets/elements/radial_percent_widget.dart';
+import 'package:my_trial_project/tools/elements/radial_percent_widget.dart';
 import 'package:flutter/material.dart';
 
 class NewsWidgetTrandings extends StatefulWidget {

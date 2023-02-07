@@ -1,14 +1,15 @@
-import 'package:my_trial_project/resources/resources.dart';
 import 'package:flutter/material.dart';
+import 'package:my_trial_project/resources/resources.dart';
+import 'package:my_trial_project/ui/navigation/main_navigation.dart';
 
-class TVShow {
+class Movie {
   final int id;
   final String imageName;
   final String title;
   final String time;
   final String description;
 
-  TVShow({
+  Movie({
     required this.id,
     required this.imageName,
     required this.title,
@@ -17,137 +18,137 @@ class TVShow {
   });
 }
 
-class TWShowListWidget extends StatefulWidget {
-  TWShowListWidget({Key? key}) : super(key: key);
+class MovieListWidget extends StatefulWidget {
+  const MovieListWidget({Key? key}) : super(key: key);
 
   @override
-  _TWShowListWidgetState createState() => _TWShowListWidgetState();
+  _MovieListWidgetState createState() => _MovieListWidgetState();
 }
 
-class _TWShowListWidgetState extends State<TWShowListWidget> {
+class _MovieListWidgetState extends State<MovieListWidget> {
   final _movies = [
-    TVShow(
+    Movie(
       id: 1,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Flash',
+      imageName: AppImages.moviePlacholder,
+      title: 'Смертельная битва',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 2,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Чудеса науки',
+      imageName: AppImages.moviePlacholder,
+      title: 'Прибытие',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 3,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Скользящие',
+      imageName: AppImages.moviePlacholder,
+      title: 'Назад в будущее 1',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 4,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Академия амбрелла',
+      imageName: AppImages.moviePlacholder,
+      title: 'Назад в будущее 2',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 5,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Ходячие мертвицы',
+      imageName: AppImages.moviePlacholder,
+      title: 'Назад в будущее 3',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 6,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Пищеблок',
+      imageName: AppImages.moviePlacholder,
+      title: 'Первому игроку приготовится',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 7,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Вампиры средней полосы',
+      imageName: AppImages.moviePlacholder,
+      title: 'Пиксели',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 8,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Теория большого взрыва',
+      imageName: AppImages.moviePlacholder,
+      title: 'Человек паук',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 9,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Дество шелдона',
+      imageName: AppImages.moviePlacholder,
+      title: 'Лига справедливости',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 10,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Как я встретил вашу маму',
+      imageName: AppImages.moviePlacholder,
+      title: 'Человек из стали',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 11,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Гравити фолз',
+      imageName: AppImages.moviePlacholder,
+      title: 'Мстители',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 12,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Утинные истории',
+      imageName: AppImages.moviePlacholder,
+      title: 'Форд против феррари',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 13,
-      imageName: AppImages.tvshowPlaceholder,
+      imageName: AppImages.moviePlacholder,
       title: 'Джентельмены',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 14,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Наследие юпитера',
+      imageName: AppImages.moviePlacholder,
+      title: 'Тихие зори',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 15,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Друзья',
+      imageName: AppImages.moviePlacholder,
+      title: 'В бой идут одни старики',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
-    TVShow(
+    Movie(
       id: 16,
-      imageName: AppImages.tvshowPlaceholder,
-      title: 'Квантовый скачек',
+      imageName: AppImages.moviePlacholder,
+      title: 'Дюна',
       time: 'April  7, 2021',
       description: 'Washed-up MMA fighter Cole Young, unaware of his heritage',
     ),
   ];
 
-  var _filteredMovies = <TVShow>[];
+  var _filteredMovies = <Movie>[];
 
   final _searchController = TextEditingController();
 
   void _searchMovies() {
     final query = _searchController.text;
     if (query.isNotEmpty) {
-      _filteredMovies = _movies.where((TVShow movie) {
+      _filteredMovies = _movies.where((Movie movie) {
         return movie.title.toLowerCase().contains(query.toLowerCase());
       }).toList();
     } else {
@@ -167,7 +168,7 @@ class _TWShowListWidgetState extends State<TWShowListWidget> {
   void _onMovieTap(int index) {
     final id = _movies[index].id;
     Navigator.of(context).pushNamed(
-      '/main_screen/movie_details',
+      MainNavigationRouteNames.movieDetailsView,
       arguments: id,
     );
   }
@@ -212,8 +213,7 @@ class _TWShowListWidgetState extends State<TWShowListWidget> {
                               const SizedBox(height: 20),
                               Text(
                                 movie.title,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
+                                style: const TextStyle(fontWeight: FontWeight.bold),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
