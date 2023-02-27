@@ -5,9 +5,9 @@ part 'data_container.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class DataContainer {
-  final int? offset;
+  final int offset;
   final int? limit;
-  final int? total;
+  final int total;
   final int? count;
   @JsonKey(name: 'results')
   final List<Comics> comics;

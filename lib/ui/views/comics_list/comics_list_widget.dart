@@ -30,6 +30,7 @@ class ComicsListWidget extends StatelessWidget {
             mainAxisExtent: 51.1.h,
           ),
           itemBuilder: (BuildContext context, int index) {
+            model.showComicsByIndex(index);
             final comics = model.comics[index];
             final imagePath = comics.thumbnail?.path;
             final imageExtension = comics.thumbnail?.imageExtension ?? '';

@@ -9,17 +9,32 @@ class ComicsListModel extends ChangeNotifier {
   final _comics = <Comics>[];
   List<Comics> get comics => List.unmodifiable(_comics);
   final _dateFormat = DateFormat.yMMMd();
+  int _currentOffset = 0;
+  int _totalNumber = 1;
+  var _isLoadingInProgress = false;
 
   String stringFromDate(DateTime? date) =>
       date != null ? _dateFormat.format(date) : '';
 
   Future<void> loadComics() async {
-    final comicsResponse = await _apiClient.latestComics(
-      'thisMonth',
-      20,
-    );
-    _comics.addAll(comicsResponse.data.comics);
-    notifyListeners();
+    if (_isLoadingInProgress || _currentOffset >= _totalNumber) return;
+    _isLoadingInProgress = true;
+    final _nextOffset = _currentOffset + 10;
+
+    try {
+      final comicsResponse = await _apiClient.latestComics(
+        'thisMonth',
+        _nextOffset,
+      );
+      _comics.addAll(comicsResponse.data.comics);
+      _currentOffset = comicsResponse.data.offset;
+      _totalNumber = comicsResponse.data.total;
+      _isLoadingInProgress = false;
+      notifyListeners();
+    } catch (e) {
+      _isLoadingInProgress = false;
+      print('Generate showErrorDialog');
+    }
   }
 
   void onComicsTap(BuildContext context, int index) {
@@ -28,5 +43,10 @@ class ComicsListModel extends ChangeNotifier {
       MainNavigationRouteNames.comicsDetailsView,
       arguments: id,
     );
+  }
+
+  void showComicsByIndex(int index) {
+    if (index < _comics.length - 3) return;
+    loadComics();
   }
 }

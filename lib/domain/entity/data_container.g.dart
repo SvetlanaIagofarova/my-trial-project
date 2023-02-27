@@ -8,9 +8,9 @@ part of 'data_container.dart';
 
 DataContainer _$DataContainerFromJson(Map<String, dynamic> json) =>
     DataContainer(
-      json['offset'] as int?,
+      json['offset'] as int,
       json['limit'] as int?,
-      json['total'] as int?,
+      json['total'] as int,
       json['count'] as int?,
       (json['results'] as List<dynamic>)
           .map((e) => Comics.fromJson(e as Map<String, dynamic>))
