@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/tools/elements/common_buttons.dart.dart';
+import 'package:my_trial_project/ui/tools/elements/buttons/common_buttons.dart.dart';
 import 'package:my_trial_project/ui/navigation/main_navigation.dart';
 import 'package:sizer/sizer.dart';
 
@@ -49,7 +49,6 @@ class _RegisterFieldsState extends State<RegisterFields> {
         MainNavigationRouteNames.mainScreen,
         (route) => false,
       );
-      print('waiting to email confirmation');
     }
     setState(() {});
   }

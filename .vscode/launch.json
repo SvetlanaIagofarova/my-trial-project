@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "my_trial_project",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define",
+                "API_KEY_PRIVATE=3e808d472881f7138349d04060fe2b68b4b7b129",
+                "--dart-define",
+                "API_KEY_PUBLIC=fb808ab900ccb542afe0a84b7190fabf",
+            ]
+        },
+        {
+            "name": "my_trial_project (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "my_trial_project (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 import 'package:my_trial_project/resources/resources.dart';
-import 'package:my_trial_project/tools/elements/radial_percent_widget.dart';
+import 'package:my_trial_project/ui/tools/elements/radial_percent_widget.dart';
 import 'package:flutter/material.dart';
 
 class NewsWidgetTrandings extends StatefulWidget {
@@ -57,7 +57,7 @@ class _NewsWidgetTrandingsState extends State<NewsWidgetTrandings> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8),
                             child: const Image(
-                              image: AssetImage(AppImages.moviePlacholder),
+                              image: AssetImage(AppImages.comicsPlacholder),
                             ),
                           ),
                         ),

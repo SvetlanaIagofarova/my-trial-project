@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_trial_project/resources/resources.dart';
-import 'package:my_trial_project/tools/elements/radial_percent_widget.dart';
+import 'package:my_trial_project/ui/tools/elements/radial_percent_widget.dart';
 
-class MovieDetailsMainInfoWidget extends StatelessWidget {
-  const MovieDetailsMainInfoWidget({Key? key}) : super(key: key);
+class ComicsDetailsMainInfoWidget extends StatelessWidget {
+  const ComicsDetailsMainInfoWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class MovieDetailsMainInfoWidget extends StatelessWidget {
         const _TopPosterWidget(),
         const Padding(
           padding: EdgeInsets.all(20.0),
-          child: _MovieNameWidget(),
+          child: _ComicsNameWidget(),
         ),
         const _ScoreWidget(),
         const _SummeryWidget(),
@@ -80,8 +80,8 @@ class _TopPosterWidget extends StatelessWidget {
   }
 }
 
-class _MovieNameWidget extends StatelessWidget {
-  const _MovieNameWidget({Key? key}) : super(key: key);
+class _ComicsNameWidget extends StatelessWidget {
+  const _ComicsNameWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

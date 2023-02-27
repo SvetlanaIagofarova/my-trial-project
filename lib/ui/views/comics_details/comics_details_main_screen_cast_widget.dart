@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_trial_project/resources/resources.dart';
 
-class MovieDetailsMainScreenCastWidget extends StatelessWidget {
-  const MovieDetailsMainScreenCastWidget({Key? key}) : super(key: key);
+class ComicsDetailsMainScreenCastWidget extends StatelessWidget {
+  const ComicsDetailsMainScreenCastWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

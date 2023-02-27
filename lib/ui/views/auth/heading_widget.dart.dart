@@ -22,7 +22,7 @@ class HeadingWidget extends StatelessWidget {
           ),
           child: Text(text,
             style: TextStyle(
-              fontSize: 4.0.h,
+              fontSize: 4.5.h,
               fontWeight: FontWeight.bold,
             ),
           ),

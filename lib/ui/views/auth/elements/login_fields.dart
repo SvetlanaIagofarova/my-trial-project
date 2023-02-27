@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/tools/elements/common_buttons.dart.dart';
-import 'package:my_trial_project/tools/provider_template.dart';
+import 'package:my_trial_project/ui/tools/elements/buttons/common_buttons.dart.dart';
+import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/auth/login/login_view_model.dart';
 import 'package:sizer/sizer.dart';
 

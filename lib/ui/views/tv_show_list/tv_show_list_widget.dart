@@ -168,7 +168,7 @@ class _TVShowListWidgetState extends State<TVShowListWidget> {
   void _onMovieTap(int index) {
     final id = _movies[index].id;
     Navigator.of(context).pushNamed(
-      MainNavigationRouteNames.movieDetailsView,
+      MainNavigationRouteNames.comicsDetailsView,
       arguments: id,
     );
   }

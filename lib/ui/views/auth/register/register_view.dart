@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/tools/elements/common_buttons.dart.dart';
+import 'package:my_trial_project/ui/tools/elements/buttons/common_buttons.dart.dart';
 import 'package:my_trial_project/ui/navigation/main_navigation.dart';
 import 'package:my_trial_project/ui/views/auth/heading_widget.dart.dart';
 import 'package:my_trial_project/ui/views/auth/register/elements/register_fields.dart';
@@ -31,7 +31,7 @@ class _RegisterViewState extends State<RegisterView> {
               children: [
                 HeadingWidget(
                   text:
-                      'Create your own space in the Cambridge dictionary',
+                      'Create your own space in the Marvel Universe',
                   button: MyGradientButton(
                     onPressed: () {
                       Navigator.of(context)

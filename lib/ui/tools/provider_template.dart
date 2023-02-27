@@ -7,7 +7,7 @@ class NotifierProvider<Model extends ChangeNotifier> extends InheritedNotifier {
     Key? key,
     required this.model,
     required Widget child,
-  }) : super(
+  } ) : super(
           key: key,
           notifier: model,
           child: child,

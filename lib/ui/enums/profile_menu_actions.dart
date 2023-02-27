@@ -1,0 +1,1 @@
+enum ProfileMenuAction { login, settings, logout }
