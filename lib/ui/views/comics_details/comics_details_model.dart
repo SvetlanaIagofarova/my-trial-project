@@ -13,13 +13,11 @@ class ComicDetailsModel extends ChangeNotifier {
 
   ComicDetailsModel(this.comicId);
 
-  Future<void> loadComicDetails(BuildContext context) async {
+
+  Future<void> loadComicDetails() async {
     try {
       _dateFormat = DateFormat.yMMMd();
       _comicDetails = await _apiClient.comicDetails(comicId);
-      // _comicDetails = _comicDetailsWrapper.data.comics.firstWhere(
-      //   (comic) => comic.id == comicId,
-      // );
       notifyListeners();
     } catch (e) {
       print('smth bad happened');

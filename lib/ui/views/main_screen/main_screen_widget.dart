@@ -41,7 +41,6 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   @override
   void initState() {
     super.initState();
-    comicsListModel.loadComics();
     bottomHideController = ScrollController();
   }
 
@@ -49,6 +48,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     comicsListModel.loadComics();
+
   }
 
   @override

@@ -43,24 +43,3 @@ class MainNavigation {
     }
   }
 }
-
-  //  if (settings.name == MainNavigationRouteNames.comicsDetailsView) {
-  //     return _buildRoute(
-  //       settings, () => MainNavigationRouteNames.comicsDetailsView,
-  //     );
-  //   } else {
-  //     MaterialPageRoute<dynamic>(
-  //       builder: (context) => const Text('Navigation error!!!'),
-  //     );
-  //   }
-  // }
-
-  // MaterialPageRoute _buildRoute(RouteSettings settings, dynamic route) {
-  //   return new MaterialPageRoute<dynamic>(
-  //     settings: settings,
-  //     builder: (ctx) => NotifierProvider(
-  //       create: () => ComicDetailsModel(settings.arguments as int),
-  //       child: const ComicsDetailsWidget(),
-  //     ),
-  //   );
-  // }

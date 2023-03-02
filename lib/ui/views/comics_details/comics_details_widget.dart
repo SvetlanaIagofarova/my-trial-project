@@ -4,8 +4,21 @@ import 'package:my_trial_project/ui/views/comics_details/comics_details_main_inf
 import 'package:my_trial_project/ui/views/comics_details/comics_details_main_screen_cast_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
 
-class ComicsDetailsWidget extends StatelessWidget {
+class ComicsDetailsWidget extends StatefulWidget {
   const ComicsDetailsWidget({Key? key}) : super(key: key);
+
+  @override
+  State<ComicsDetailsWidget> createState() => _ComicsDetailsWidgetState();
+}
+
+class _ComicsDetailsWidgetState extends State<ComicsDetailsWidget> {
+
+@override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+     NotifierProvider.read<ComicDetailsModel>(context)?.loadComicDetails();
+  }
+
 
   @override
   Widget build(BuildContext context) {

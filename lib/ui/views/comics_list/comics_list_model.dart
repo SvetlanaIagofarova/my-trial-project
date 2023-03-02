@@ -23,10 +23,10 @@ class ComicsListModel extends ChangeNotifier {
 
     try {
       final comicsResponse = await _apiClient.latestComics(
-        'thisMonth',
+        'lastWeek',
         _nextOffset,
         true,
-        '-onsaleDate',
+        'onsaleDate',
       );
       _comics.addAll(comicsResponse.data.comics);
       _currentOffset = comicsResponse.data.offset;
