@@ -71,7 +71,8 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         children: [
           const NewsWidget(),
           NotifierProvider(
-            model: comicsListModel,
+            create: () => comicsListModel,
+            isManagingModel: false,
             child: ComicsListWidget(
               controller: bottomHideController,
             ),

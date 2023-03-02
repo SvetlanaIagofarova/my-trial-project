@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
+import 'package:my_trial_project/domain/entity/comics.dart';
 import 'package:my_trial_project/domain/entity/wrapper_object.dart';
 
 enum ApiClientExceptionType { Network, Other }
@@ -36,6 +37,8 @@ class ApiClient {
   Future<WrapperObject> latestComics(
     String dateDescriptor,
     int offset,
+    bool noVariants,
+    String orderBy,
   ) async {
     final parser = (dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
@@ -46,8 +49,33 @@ class ApiClient {
       '/v1/public/comics',
       parser,
       <String, dynamic>{
+        'noVariants': noVariants.toString(),
         'dateDescriptor': dateDescriptor,
+        'orderBy': orderBy,
         'offset': offset.toString(),
+        'ts': _ts,
+        'apikey': _apiKeyPublic,
+        'hash': _hash(),
+      },
+    );
+    return result;
+  }
+
+  Future<Comics> comicDetails(
+    int comicId,
+  ) async {
+    final parser = (dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = WrapperObject.fromJson(jsonMap);
+      return response.data.comics.
+      firstWhere(
+        (comic) => comic.id == comicId,
+      );
+    };
+    final result = _get(
+      '/v1/public/comics/$comicId',
+      parser,
+      <String, dynamic>{
         'ts': _ts,
         'apikey': _apiKeyPublic,
         'hash': _hash(),

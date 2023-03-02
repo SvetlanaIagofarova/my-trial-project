@@ -19,12 +19,14 @@ class ComicsListModel extends ChangeNotifier {
   Future<void> loadComics() async {
     if (_isLoadingInProgress || _currentOffset >= _totalNumber) return;
     _isLoadingInProgress = true;
-    final _nextOffset = _currentOffset + 10;
+    final _nextOffset = _currentOffset + 20;
 
     try {
       final comicsResponse = await _apiClient.latestComics(
         'thisMonth',
         _nextOffset,
+        true,
+        '-onsaleDate',
       );
       _comics.addAll(comicsResponse.data.comics);
       _currentOffset = comicsResponse.data.offset;
