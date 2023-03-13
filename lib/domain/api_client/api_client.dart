@@ -21,9 +21,14 @@ class ApiClient {
   static String _hashInput = '$_ts$_apiKeyPrivate$_apiKeyPublic';
   static String _hash() => md5.convert(utf8.encode(_hashInput)).toString();
   static const _portraitFantasticImageSize = '/portrait_fantastic.';
+  static const _portraitIncredibleImageSize = '/portrait_incredible.';
 
-  static String imageUrl(String path, String imageExtension) =>
+  static String imagePortraitFantasticUrl(String path, String imageExtension) =>
       path + _portraitFantasticImageSize + imageExtension;
+
+  static String imagePortraitLandscapeUrl(String path, String imageExtension) =>
+      path + _portraitIncredibleImageSize + imageExtension;
+
 
   Uri _makeUri(String path, [Map<String, dynamic>? parameters]) {
     final uri = Uri.parse('$_endPoint$path');
@@ -61,16 +66,13 @@ class ApiClient {
     return result;
   }
 
-  Future<Comics> comicDetails(
+  Future<WrapperObject> comicDetails(
     int comicId,
   ) async {
     final parser = (dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
       final response = WrapperObject.fromJson(jsonMap);
-      return response.data.comics.
-      firstWhere(
-        (comic) => comic.id == comicId,
-      );
+      return response;
     };
     final result = _get(
       '/v1/public/comics/$comicId',
@@ -83,6 +85,7 @@ class ApiClient {
     );
     return result;
   }
+
 
   Future<T> _get<T>(
     String path,

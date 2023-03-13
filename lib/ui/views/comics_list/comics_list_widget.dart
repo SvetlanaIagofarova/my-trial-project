@@ -52,7 +52,7 @@ class ComicsListWidget extends StatelessWidget {
                       ),
                       child: imagePath != null
                           ? Image.network(
-                              ApiClient.imageUrl(imagePath, imageExtension),
+                              ApiClient.imagePortraitFantasticUrl(imagePath, imageExtension),
                             )
                           : const SizedBox.shrink(),
                     ),

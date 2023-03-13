@@ -12,13 +12,11 @@ class ComicsDetailsWidget extends StatefulWidget {
 }
 
 class _ComicsDetailsWidgetState extends State<ComicsDetailsWidget> {
-
-@override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-     NotifierProvider.read<ComicDetailsModel>(context)?.loadComicDetails();
+    NotifierProvider.read<ComicDetailsModel>(context)?.loadComicDetails();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +24,9 @@ class _ComicsDetailsWidgetState extends State<ComicsDetailsWidget> {
       appBar: AppBar(
         title: const _TitleWidget(),
       ),
-      body: ColoredBox(
-        color: const Color.fromRGBO(24, 23, 27, 1.0),
-        child: ListView(
-          children: [
-            const ComicsDetailsMainInfoWidget(),
-            const SizedBox(height: 30),
-            const ComicsDetailsMainScreenCastWidget(),
-          ],
-        ),
+      body: const ColoredBox(
+        color: Color.fromRGBO(24, 23, 27, 1.0),
+        child: _BodyWidget(),
       ),
     );
   }
@@ -46,6 +38,25 @@ class _TitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = NotifierProvider.watch<ComicDetailsModel>(context);
-    return Text( model?.comicDetails?.title ?? 'Loading...');
+    return Text(model?.comicDetails?.title ?? 'Loading...');
+  }
+}
+
+class _BodyWidget extends StatelessWidget {
+  const _BodyWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final comicDetails = model?.comicDetails;
+    if (comicDetails == null)
+      return const Center(child: CircularProgressIndicator());
+    return ListView(
+      children: [
+        const ComicsDetailsMainInfoWidget(),
+        const SizedBox(height: 30),
+        const ComicsDetailsMainScreenCastWidget(),
+      ],
+    );
   }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/resources/resources.dart';
-import 'package:my_trial_project/ui/tools/elements/radial_percent_widget.dart';
+import 'package:my_trial_project/domain/api_client/api_client.dart';
+import 'package:my_trial_project/domain/entity/comics/creator_summary.dart';
+import 'package:my_trial_project/ui/tools/provider_template.dart';
+import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
+import 'package:sizer/sizer.dart';
 
 class ComicsDetailsMainInfoWidget extends StatelessWidget {
   const ComicsDetailsMainInfoWidget({Key? key}) : super(key: key);
@@ -9,21 +12,36 @@ class ComicsDetailsMainInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const _TopPosterWidget(),
-        const Padding(
-          padding: EdgeInsets.all(20.0),
-          child: _ComicsNameWidget(),
-        ),
-        const _ScoreWidget(),
-        const _SummeryWidget(),
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.symmetric(
+            vertical: 2.5.h,
+            horizontal: 3.0.h,
+          ),
+          child: const _ComicsNameWidget(),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 6.0.h,
+            horizontal: 3.0.h,
+          ),
+          child: const _AuthorsDescriptionPlaceholderWidget(),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 2.5.h,
+            horizontal: 3.0.h,
+          ),
           child: _OverviewWidget(),
         ),
-        const Padding(
-          padding: EdgeInsets.all(10.0),
-          child: _DescriptionWidget(),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 2.5.h,
+            horizontal: 3.0.h,
+          ),
+          child: const _DescriptionWidget(),
         ),
         const SizedBox(height: 30),
         const _PeopleWidgets(),
@@ -66,17 +84,18 @@ class _TopPosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const Image(image: AssetImage(AppImages.topHeader)),
-        const Positioned(
-          top: 20,
-          left: 20,
-          bottom: 20,
-          child: Image(image: AssetImage(AppImages.topHeaderSubImage)),
-        ),
-      ],
-    );
+    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    if (model == null) return const SizedBox.shrink();
+    final imagePath = model.comicDetails?.thumbnail?.path;
+    final imageExtension = model.comicDetails?.thumbnail?.imageExtension ?? '';
+    return imagePath != null
+        ? AspectRatio(
+            aspectRatio: 0.95,
+            child: Image.network(
+              ApiClient.imagePortraitLandscapeUrl(imagePath, imageExtension),
+            ),
+          )
+        : const SizedBox.shrink();
   }
 }
 
@@ -85,95 +104,119 @@ class _ComicsNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
+    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    return Text(
+      model?.comicDetails?.title ?? '',
       maxLines: 3,
       textAlign: TextAlign.center,
-      text: const TextSpan(
-        children: [
-          TextSpan(
-            text: 'Tom Clancy`s Without Remorse',
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          TextSpan(
-            text: ' (2021)',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 3.8.h,
+        fontWeight: FontWeight.w700,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
 }
 
-class _ScoreWidget extends StatelessWidget {
-  const _ScoreWidget({Key? key}) : super(key: key);
+class _AuthorsDescriptionPlaceholderWidget extends StatelessWidget {
+  const _AuthorsDescriptionPlaceholderWidget();
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    if (model == null) return const SizedBox.shrink();
+    final onsaleDate = model.comicDetails?.dates?.map((i) => i.date).first;
+    final listOfCreators = model.comicDetails?.creators?.items;
+    final writersNames = listOfCreators
+        ?.firstWhere(
+          (item) => item.role == 'writer' || item.role == 'writer (cover)',
+          orElse: () => CreatorSummary('', 'unknown', ''),
+        )
+        .name;
+    final pencilersNames = listOfCreators
+        ?.firstWhere(
+          (item) => item.role == 'inker' || item.role == 'penciler (cover)',
+          orElse: () => CreatorSummary('', 'unknown', ''),
+        )
+        .name;
+    final coverArtistsNames = listOfCreators
+        ?.firstWhere(
+          (item) =>
+              item.role == 'penciler (cover)' || item.role == 'inker (cover)',
+          orElse: () => CreatorSummary('', 'unknown', ''),
+        )
+        .name;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextButton(
-          onPressed: () {},
-          child: Row(
-            children: [
-              SizedBox(
-                width: 40,
-                height: 40,
-                child: RadialPercentWidget(
-                  percent: 0.72,
-                  fillColor: const Color.fromARGB(255, 10, 23, 25),
-                  lineColor: const Color.fromARGB(255, 37, 203, 103),
-                  freeColor: const Color.fromARGB(255, 25, 54, 31),
-                  lineWidth: 3,
-                  child: const Text('72'),
-                ),
-              ),
-              const SizedBox(width: 10),
-              const Text('User Score'),
-            ],
-          ),
+        
+        _AuthorsDescriptionWidget(
+          description: 'Published:',
+          name: model.stringFromDate(onsaleDate),
         ),
-        Container(width: 1, height: 15, color: Colors.grey),
-        TextButton(
-          onPressed: () {},
-          child: Row(
-            children: [
-              const Icon(Icons.play_arrow),
-              const Text('Play Trailer'),
-            ],
-          ),
-        ),
+        SizedBox(height: 2.5.h),
+        writersNames != 'unknown'
+            ? _AuthorsDescriptionWidget(
+                description: 'Writer:',
+                name: writersNames ?? '',
+              )
+            : const SizedBox.shrink(),
+        SizedBox(height: 2.5.h),
+        pencilersNames != 'unknown'
+            ? _AuthorsDescriptionWidget(
+                description: 'Penciler:',
+                name: pencilersNames ?? '',
+              )
+            : const SizedBox.shrink(),
+        SizedBox(height: 2.5.h),
+        coverArtistsNames != 'unknown'
+            ? _AuthorsDescriptionWidget(
+                description: 'Cover Artist:',
+                name: coverArtistsNames ?? '',
+              )
+            : const SizedBox.shrink(),
+        SizedBox(height: 2.0.h),
       ],
     );
   }
 }
 
-class _SummeryWidget extends StatelessWidget {
-  const _SummeryWidget({Key? key}) : super(key: key);
+class _AuthorsDescriptionWidget extends StatelessWidget {
+  final String description;
+  final String name;
+  const _AuthorsDescriptionWidget({
+    required this.description,
+    required this.name,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return const ColoredBox(
-      color: Color.fromRGBO(22, 21, 25, 1.0),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 70),
-        child: Text(
-          'R, 04/29/2021 (US) 1h49m Action, Adventure, Thriller, War',
-          maxLines: 3,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
+    final descriptionStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 3.0.h,
+      fontWeight: FontWeight.w600,
+    );
+    final nameStyle = TextStyle(
+      color: Colors.white,
+      fontSize: 3.0.h,
+    );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          description,
+          maxLines: 2,
+          textAlign: TextAlign.start,
+          style: descriptionStyle,
         ),
-      ),
+        Text(
+          name,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: nameStyle,
+        ),
+      ],
     );
   }
 }
