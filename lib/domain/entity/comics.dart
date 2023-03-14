@@ -28,6 +28,7 @@ class Comics {
   final String? diamondCode;
   final String? ean;
   final String? issn;
+  final String? format;
   final int? pageCount;
   final List<TextObjects>? textObjects;
   final String? resourceURI;
@@ -57,6 +58,7 @@ class Comics {
     this.diamondCode,
     this.ean,
     this.issn,
+    this.format,
     this.pageCount,
     this.textObjects,
     this.resourceURI,

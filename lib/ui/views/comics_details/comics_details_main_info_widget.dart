@@ -14,7 +14,9 @@ class ComicsDetailsMainInfoWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(height: 1.5.h),
         const _TopPosterWidget(),
+        SizedBox(height: 1.0.h),
         Padding(
           padding: EdgeInsets.symmetric(
             vertical: 2.5.h,
@@ -23,58 +25,10 @@ class ComicsDetailsMainInfoWidget extends StatelessWidget {
           child: const _ComicsNameWidget(),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 6.0.h,
-            horizontal: 3.0.h,
-          ),
+          padding: EdgeInsets.all(3.0.h),
           child: const _AuthorsDescriptionPlaceholderWidget(),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 2.5.h,
-            horizontal: 3.0.h,
-          ),
-          child: _OverviewWidget(),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 2.5.h,
-            horizontal: 3.0.h,
-          ),
-          child: const _DescriptionWidget(),
-        ),
-        const SizedBox(height: 30),
-        const _PeopleWidgets(),
       ],
-    );
-  }
-
-  Text _OverviewWidget() {
-    return const Text(
-      'Overview',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-      ),
-    );
-  }
-}
-
-class _DescriptionWidget extends StatelessWidget {
-  const _DescriptionWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Text(
-      'An elite Navy SEAL uncovers an international conspiracy while seeking justice for the murder of his pregnant wife.',
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-      ),
     );
   }
 }
@@ -142,37 +96,38 @@ class _AuthorsDescriptionPlaceholderWidget extends StatelessWidget {
         .name;
     final coverArtistsNames = listOfCreators
         ?.firstWhere(
-          (item) =>
-              item.role == 'penciler (cover)' || item.role == 'inker (cover)',
-          orElse: () => CreatorSummary('', 'unknown', ''),
+          (item) => item.role == 'penciler (cover)',
+          orElse: () => listOfCreators.firstWhere(
+            (item) => item.role == 'inker (cover)',
+            orElse: () => CreatorSummary('', 'unknown', ''),
+          ),
         )
         .name;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        
         _AuthorsDescriptionWidget(
-          description: 'Published:',
+          role: 'Published:',
           name: model.stringFromDate(onsaleDate),
         ),
         SizedBox(height: 2.5.h),
         writersNames != 'unknown'
             ? _AuthorsDescriptionWidget(
-                description: 'Writer:',
+                role: 'Writer:',
                 name: writersNames ?? '',
               )
             : const SizedBox.shrink(),
         SizedBox(height: 2.5.h),
         pencilersNames != 'unknown'
             ? _AuthorsDescriptionWidget(
-                description: 'Penciler:',
+                role: 'Penciler:',
                 name: pencilersNames ?? '',
               )
             : const SizedBox.shrink(),
         SizedBox(height: 2.5.h),
         coverArtistsNames != 'unknown'
             ? _AuthorsDescriptionWidget(
-                description: 'Cover Artist:',
+                role: 'Cover Artist:',
                 name: coverArtistsNames ?? '',
               )
             : const SizedBox.shrink(),
@@ -183,101 +138,38 @@ class _AuthorsDescriptionPlaceholderWidget extends StatelessWidget {
 }
 
 class _AuthorsDescriptionWidget extends StatelessWidget {
-  final String description;
+  final String role;
   final String name;
   const _AuthorsDescriptionWidget({
-    required this.description,
+    required this.role,
     required this.name,
   });
 
   @override
   Widget build(BuildContext context) {
-    final descriptionStyle = TextStyle(
+    final roleStyle = TextStyle(
       color: Colors.white,
-      fontSize: 3.0.h,
+      fontSize: 3.25.h,
       fontWeight: FontWeight.w600,
     );
     final nameStyle = TextStyle(
       color: Colors.white,
-      fontSize: 3.0.h,
+      fontSize: 3.25.h,
     );
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          description,
+          role,
           maxLines: 2,
           textAlign: TextAlign.start,
-          style: descriptionStyle,
+          style: roleStyle,
         ),
         Text(
           name,
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: nameStyle,
-        ),
-      ],
-    );
-  }
-}
-
-class _PeopleWidgets extends StatelessWidget {
-  const _PeopleWidgets({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    const nameStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-    );
-    const jobTilteStyle = TextStyle(
-      color: Colors.white,
-      fontSize: 16,
-      fontWeight: FontWeight.w400,
-    );
-    return Column(
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Stefano Sollima', style: nameStyle),
-                const Text('Director', style: jobTilteStyle),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Stefano Sollima', style: nameStyle),
-                const Text('Director', style: jobTilteStyle),
-              ],
-            )
-          ],
-        ),
-        const SizedBox(height: 20),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Stefano Sollima', style: nameStyle),
-                const Text('Director', style: jobTilteStyle),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('Stefano Sollima', style: nameStyle),
-                const Text('Director', style: jobTilteStyle),
-              ],
-            )
-          ],
         ),
       ],
     );

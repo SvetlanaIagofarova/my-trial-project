@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static const mainDarkBlue = Color.fromRGBO(3, 37, 65, 1);
+  static const mainDarkGrey =  Color.fromARGB(255, 33, 33, 33);
+  static const transparentRed = Color.fromARGB(142, 244, 67, 54);
 }

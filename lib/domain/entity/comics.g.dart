@@ -19,6 +19,7 @@ Comics _$ComicsFromJson(Map<String, dynamic> json) => Comics(
       json['diamondCode'] as String?,
       json['ean'] as String?,
       json['issn'] as String?,
+      json['format'] as String?,
       json['pageCount'] as int?,
       (json['textObjects'] as List<dynamic>?)
           ?.map((e) => TextObjects.fromJson(e as Map<String, dynamic>))
@@ -75,6 +76,7 @@ Map<String, dynamic> _$ComicsToJson(Comics instance) => <String, dynamic>{
       'diamondCode': instance.diamondCode,
       'ean': instance.ean,
       'issn': instance.issn,
+      'format': instance.format,
       'pageCount': instance.pageCount,
       'textObjects': instance.textObjects?.map((e) => e.toJson()).toList(),
       'resourceURI': instance.resourceURI,

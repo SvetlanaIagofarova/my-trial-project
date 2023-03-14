@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
+import 'package:my_trial_project/ui/views/comics_details/comic_details_more_details_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_main_info_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_main_screen_cast_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
+import 'package:sizer/sizer.dart';
 
 class ComicsDetailsWidget extends StatefulWidget {
   const ComicsDetailsWidget({Key? key}) : super(key: key);
@@ -50,11 +52,14 @@ class _BodyWidget extends StatelessWidget {
     final model = NotifierProvider.watch<ComicDetailsModel>(context);
     final comicDetails = model?.comicDetails;
     if (comicDetails == null)
-      return const Center(child: CircularProgressIndicator());
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
     return ListView(
       children: [
         const ComicsDetailsMainInfoWidget(),
-        const SizedBox(height: 30),
+        SizedBox(height: 5.0.h),
+        const MoreDetailsWidget(),
         const ComicsDetailsMainScreenCastWidget(),
       ],
     );
