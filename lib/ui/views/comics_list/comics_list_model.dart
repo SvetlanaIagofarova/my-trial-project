@@ -20,7 +20,6 @@ class ComicsListModel extends ChangeNotifier {
     if (_isLoadingInProgress || _currentOffset >= _totalNumber) return;
     _isLoadingInProgress = true;
     final _nextOffset = _currentOffset + 20;
-
     try {
       final comicsResponse = await _apiClient.latestComics(
         'thisMonth',

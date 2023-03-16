@@ -21,17 +21,29 @@ class ApiClient {
   static String _hashInput = '$_ts$_apiKeyPrivate$_apiKeyPublic';
   static String _hash() => md5.convert(utf8.encode(_hashInput)).toString();
   static const _portraitFantasticImageSize = '/portrait_fantastic.';
+  static const _portraitSquareFantasticImageSize = '/standard_fantastic.';
   static const _portraitIncredibleImageSize = '/portrait_incredible.';
 
   static String imagePortraitFantasticUrl(String path, String imageExtension) =>
       path + _portraitFantasticImageSize + imageExtension;
 
+  static String imagePortraitSquareUrl(String path, String imageExtension) =>
+      path + _portraitSquareFantasticImageSize + imageExtension;
+
   static String imagePortraitLandscapeUrl(String path, String imageExtension) =>
       path + _portraitIncredibleImageSize + imageExtension;
 
-
   Uri _makeUri(String path, [Map<String, dynamic>? parameters]) {
     final uri = Uri.parse('$_endPoint$path');
+    if (parameters != null) {
+      return uri.replace(queryParameters: parameters);
+    } else {
+      return uri;
+    }
+  }
+
+  Uri _makeUriFromApi(String path, [Map<String, dynamic>? parameters]) {
+    final uri = Uri.parse('$path');
     if (parameters != null) {
       return uri.replace(queryParameters: parameters);
     } else {
@@ -86,6 +98,25 @@ class ApiClient {
     return result;
   }
 
+  Future<WrapperObject> seriesOfComic(
+    String seriesUrl,
+  ) async {
+    final parser = (dynamic json) {
+      final jsonMap = json as Map<String, dynamic>;
+      final response = WrapperObject.fromJson(jsonMap);
+      return response;
+    };
+    final result = _getUriFromApi(
+      '$seriesUrl/comics',
+      parser,
+      <String, dynamic>{
+        'ts': _ts,
+        'apikey': _apiKeyPublic,
+        'hash': _hash(),
+      },
+    );
+    return result;
+  }
 
   Future<T> _get<T>(
     String path,
@@ -93,6 +124,28 @@ class ApiClient {
     Map<String, dynamic>? parameters,
   ]) async {
     final url = _makeUri(path, parameters);
+    try {
+      final request = await _client.getUrl(url);
+      final response = await request.close();
+      final dynamic json = (await response.jsonDecode());
+      _validateResponse(response, json);
+      final result = parser(json);
+      return result;
+    } on SocketException {
+      throw ApiClientException(ApiClientExceptionType.Network);
+    } on ApiClientException {
+      rethrow;
+    } catch (_) {
+      throw ApiClientException(ApiClientExceptionType.Other);
+    }
+  }
+
+  Future<T> _getUriFromApi<T>(
+    String path,
+    T Function(dynamic json) parser, [
+    Map<String, dynamic>? parameters,
+  ]) async {
+    final url = _makeUriFromApi(path, parameters);
     try {
       final request = await _client.getUrl(url);
       final response = await request.close();

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_trial_project/domain/entity/comics/comic_date.dart';
 import 'package:my_trial_project/domain/entity/comics/creator_summary.dart';
 import 'package:my_trial_project/ui/theme/app_colors.dart';
+import 'package:my_trial_project/ui/tools/attribution_text.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
 import 'package:sizer/sizer.dart';
@@ -14,8 +15,9 @@ class MoreDetailsWidget extends StatelessWidget {
     return ColoredBox(
       color: AppColors.mainDarkGrey,
       child: Padding(
-        padding: EdgeInsets.all(3.0.h),
+        padding: EdgeInsets.fromLTRB(3.0.h, 3.0.h, 1.0.h, 1.0.h),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             SizedBox(height: 7.0.h),
             Center(
@@ -27,7 +29,8 @@ class MoreDetailsWidget extends StatelessWidget {
             const _StoriesWidget(),
             SizedBox(height: 10.0.h),
             const _CoverInformationWidget(),
-            SizedBox(height: 10.0.h),
+            SizedBox(height: 12.25.h),
+            const AttributionTextWidget(color: Colors.white70),
           ],
         ),
       ),

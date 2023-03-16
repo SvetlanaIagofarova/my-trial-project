@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_details/comic_details_more_details_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_main_info_widget.dart';
-import 'package:my_trial_project/ui/views/comics_details/comics_details_main_screen_cast_widget.dart';
+import 'package:my_trial_project/ui/views/comics_details/comics_details_main_series_of_comic_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
 import 'package:sizer/sizer.dart';
 
@@ -18,6 +18,7 @@ class _ComicsDetailsWidgetState extends State<ComicsDetailsWidget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     NotifierProvider.read<ComicDetailsModel>(context)?.loadComicDetails();
+    NotifierProvider.read<ComicDetailsModel>(context)?.loadSeriesOfComic();
   }
 
   @override
@@ -60,7 +61,7 @@ class _BodyWidget extends StatelessWidget {
         const ComicsDetailsMainInfoWidget(),
         SizedBox(height: 5.0.h),
         const MoreDetailsWidget(),
-        const ComicsDetailsMainScreenCastWidget(),
+        const ComicsDetailsSeriesOfComicWidget(),
       ],
     );
   }
