@@ -52,10 +52,11 @@ class _BodyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = NotifierProvider.watch<ComicDetailsModel>(context);
     final comicDetails = model?.comicDetails;
-    if (comicDetails == null)
+    if (comicDetails == null) {
       return const Center(
         child: CircularProgressIndicator(),
       );
+    }
     return ListView(
       children: [
         const ComicsDetailsMainInfoWidget(),

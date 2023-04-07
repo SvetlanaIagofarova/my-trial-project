@@ -21,7 +21,7 @@ class MoreDetailsWidget extends StatelessWidget {
           children: [
             SizedBox(height: 7.0.h),
             Center(
-              child: _TitleDetailsWidget('MORE DETAILS'),
+              child: _titleDetailsWidget('MORE DETAILS'),
             ),
             SizedBox(height: 10.0.h),
             const _ExtendedCreditsAndInfoWidget(),
@@ -38,7 +38,7 @@ class MoreDetailsWidget extends StatelessWidget {
   }
 }
 
-Text _TitleDetailsWidget(String title) {
+Text _titleDetailsWidget(String title) {
   return Text(
     title,
     style: TextStyle(
@@ -49,7 +49,7 @@ Text _TitleDetailsWidget(String title) {
   );
 }
 
-Text _SubtitleDetailsWidget(String subtitle) {
+Text _subtitleDetailsWidget(String subtitle) {
   return Text(
     subtitle,
     style: TextStyle(
@@ -128,16 +128,16 @@ class _DescriptionButtonWidget extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {},
+          style: TextButton.styleFrom(
+            minimumSize: Size.zero,
+            padding: EdgeInsets.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
           child: Text(
             value,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: valueStyle,
-          ),
-          style: TextButton.styleFrom(
-            minimumSize: Size.zero,
-            padding: EdgeInsets.zero,
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
         ),
       ],
@@ -166,7 +166,7 @@ class _ExtendedCreditsAndInfoWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _SubtitleDetailsWidget('EXTENDED CREDITS AND INFO'),
+        _subtitleDetailsWidget('EXTENDED CREDITS AND INFO'),
         SizedBox(height: 3.0.h),
         const _DescriptionStringWidget(
           detail: 'Rating: ',
@@ -252,7 +252,7 @@ class _StoriesWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _SubtitleDetailsWidget('STORIES'),
+        _subtitleDetailsWidget('STORIES'),
         SizedBox(height: 3.0.h),
         writersName != 'unknown'
             ? _DescriptionButtonWidget(
@@ -343,7 +343,7 @@ class _CoverInformationWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _SubtitleDetailsWidget('COVER INFORMATION'),
+        _subtitleDetailsWidget('COVER INFORMATION'),
         SizedBox(height: 3.0.h),
         coloristCoverName != 'unknown'
             ? _DescriptionButtonWidget(

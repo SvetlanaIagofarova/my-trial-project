@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:crypto/crypto.dart';
-import 'package:my_trial_project/domain/entity/comics.dart';
 import 'package:my_trial_project/domain/entity/wrapper_object.dart';
 
-enum ApiClientExceptionType { Network, Other }
+enum ApiClientExceptionType { network, other }
 
 class ApiClientException implements Exception {
   final ApiClientExceptionType type;
@@ -17,8 +16,8 @@ class ApiClient {
   static const _endPoint = 'http://gateway.marvel.com';
   static const _apiKeyPrivate = String.fromEnvironment('API_KEY_PRIVATE');
   static const _apiKeyPublic = String.fromEnvironment('API_KEY_PUBLIC');
-  static String _ts = DateTime.now().millisecondsSinceEpoch.toString();
-  static String _hashInput = '$_ts$_apiKeyPrivate$_apiKeyPublic';
+  static final String _ts = DateTime.now().millisecondsSinceEpoch.toString();
+  static final String _hashInput = '$_ts$_apiKeyPrivate$_apiKeyPublic';
   static String _hash() => md5.convert(utf8.encode(_hashInput)).toString();
   static const _portraitFantasticImageSize = '/portrait_fantastic.';
   static const _portraitSquareFantasticImageSize = '/standard_fantastic.';
@@ -43,7 +42,7 @@ class ApiClient {
   }
 
   Uri _makeUriFromApi(String path, [Map<String, dynamic>? parameters]) {
-    final uri = Uri.parse('$path');
+    final uri = Uri.parse(path);
     if (parameters != null) {
       return uri.replace(queryParameters: parameters);
     } else {
@@ -57,11 +56,12 @@ class ApiClient {
     bool noVariants,
     String orderBy,
   ) async {
-    final parser = (dynamic json) {
+    parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
       final response = WrapperObject.fromJson(jsonMap);
       return response;
-    };
+    }
+
     final result = _get(
       '/v1/public/comics',
       parser,
@@ -81,11 +81,12 @@ class ApiClient {
   Future<WrapperObject> comicDetails(
     int comicId,
   ) async {
-    final parser = (dynamic json) {
+    parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
       final response = WrapperObject.fromJson(jsonMap);
       return response;
-    };
+    }
+
     final result = _get(
       '/v1/public/comics/$comicId',
       parser,
@@ -101,11 +102,12 @@ class ApiClient {
   Future<WrapperObject> seriesOfComic(
     String seriesUrl,
   ) async {
-    final parser = (dynamic json) {
+    parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
       final response = WrapperObject.fromJson(jsonMap);
       return response;
-    };
+    }
+
     final result = _getUriFromApi(
       '$seriesUrl/comics',
       parser,
@@ -132,11 +134,11 @@ class ApiClient {
       final result = parser(json);
       return result;
     } on SocketException {
-      throw ApiClientException(ApiClientExceptionType.Network);
+      throw ApiClientException(ApiClientExceptionType.network);
     } on ApiClientException {
       rethrow;
     } catch (_) {
-      throw ApiClientException(ApiClientExceptionType.Other);
+      throw ApiClientException(ApiClientExceptionType.other);
     }
   }
 
@@ -154,11 +156,11 @@ class ApiClient {
       final result = parser(json);
       return result;
     } on SocketException {
-      throw ApiClientException(ApiClientExceptionType.Network);
+      throw ApiClientException(ApiClientExceptionType.network);
     } on ApiClientException {
       rethrow;
     } catch (_) {
-      throw ApiClientException(ApiClientExceptionType.Other);
+      throw ApiClientException(ApiClientExceptionType.other);
     }
   }
 
@@ -167,9 +169,9 @@ class ApiClient {
       final dynamic status = json['code'];
       final code = status is int ? status : 0;
       if (code == 30) {
-        throw ApiClientException(ApiClientExceptionType.Network);
+        throw ApiClientException(ApiClientExceptionType.network);
       } else {
-        throw ApiClientException(ApiClientExceptionType.Other);
+        throw ApiClientException(ApiClientExceptionType.other);
       }
     }
   }

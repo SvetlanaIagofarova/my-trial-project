@@ -30,7 +30,7 @@ class ComicDetailsModel extends ChangeNotifier {
     try {
       _dateFormat = DateFormat.yMMMd();
       _comicDetailsWrapper = await _apiClient.comicDetails(comicId);
-      _comicDetails = await _comicDetailsWrapper?.data.comics.firstWhere(
+      _comicDetails = _comicDetailsWrapper?.data.comics.firstWhere(
         (comic) => comic.id == comicId,
       );
       loadSeriesOfComic();
@@ -57,8 +57,8 @@ class ComicDetailsModel extends ChangeNotifier {
     }
   }
 
-  void showSeriesOfComicByIndex(int index) {
-    if (index < _seriesOfComics.length - 3) return;
-    loadSeriesOfComic();
-  }
+  // void showSeriesOfComicByIndex(int index) {
+  //   if (index < _seriesOfComics.length - 3) return;
+  //   loadSeriesOfComic();
+  // }
 }

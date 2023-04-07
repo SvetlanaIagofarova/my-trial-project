@@ -11,12 +11,12 @@ class NewsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [
-        const NewsWidgetPopular(),
-        const NewsWidgetFreeToWatch(),
-        const NewsWidgetTrailers(),
-        const NewsWidgetTrandings(),
-        const NewsWidgetLeaderboards(),
+      children: const [
+        NewsWidgetPopular(),
+        NewsWidgetFreeToWatch(),
+        NewsWidgetTrailers(),
+        NewsWidgetTrandings(),
+        NewsWidgetLeaderboards(),
       ],
     );
   }

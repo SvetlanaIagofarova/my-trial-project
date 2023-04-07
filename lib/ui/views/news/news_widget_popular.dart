@@ -28,12 +28,10 @@ class _NewsWidgetPopularState extends State<NewsWidgetPopular> {
               DropdownButton<String>(
                 value: _catrgory,
                 onChanged: (catrgory) {},
-                items: [
-                  const DropdownMenuItem(
-                      value: 'movies', child: Text('Movies')),
-                  const DropdownMenuItem(value: 'tv', child: Text('TV')),
-                  const DropdownMenuItem(
-                      value: 'tvShows', child: Text('TVShows')),
+                items: const [
+                  DropdownMenuItem(value: 'movies', child: Text('Movies')),
+                  DropdownMenuItem(value: 'tv', child: Text('TV')),
+                  DropdownMenuItem(value: 'tvShows', child: Text('TVShows')),
                 ],
               ),
             ],
@@ -74,7 +72,7 @@ class _NewsWidgetPopularState extends State<NewsWidgetPopular> {
                             child: const Icon(Icons.more_horiz),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 10,
                           bottom: 0,
                           child: SizedBox(
@@ -82,12 +80,11 @@ class _NewsWidgetPopularState extends State<NewsWidgetPopular> {
                             height: 40,
                             child: RadialPercentWidget(
                               percent: 0.68,
-                              fillColor: const Color.fromARGB(255, 10, 23, 25),
-                              lineColor:
-                                  const Color.fromARGB(255, 37, 203, 103),
-                              freeColor: const Color.fromARGB(255, 25, 54, 31),
+                              fillColor: Color.fromARGB(255, 10, 23, 25),
+                              lineColor: Color.fromARGB(255, 37, 203, 103),
+                              freeColor: Color.fromARGB(255, 25, 54, 31),
                               lineWidth: 3,
-                              child: const Text(
+                              child: Text(
                                 '68%',
                                 style: TextStyle(
                                   color: Colors.white,

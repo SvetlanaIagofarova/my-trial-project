@@ -48,7 +48,6 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     comicsListModel.loadComics();
-
   }
 
   @override
@@ -62,8 +61,8 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     return Scaffold(
       appBar: AppBar(
         title: _title,
-        actions: [
-          const ProfileButton(),
+        actions: const [
+          ProfileButton(),
         ],
       ),
       body: IndexedStack(
@@ -84,16 +83,16 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         controller: bottomHideController,
         child: BottomNavigationBar(
           currentIndex: _selectedTab,
-          items: [
-            const BottomNavigationBarItem(
+          items: const [
+            BottomNavigationBarItem(
               icon: Icon(Icons.home),
               label: 'News',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.movie_filter),
               label: 'Comics',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(Icons.tv),
               label: 'Series',
             ),
