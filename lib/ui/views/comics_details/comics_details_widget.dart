@@ -18,7 +18,6 @@ class _ComicsDetailsWidgetState extends State<ComicsDetailsWidget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     NotifierProvider.read<ComicDetailsModel>(context)?.loadComicDetails();
-    // NotifierProvider.read<ComicDetailsModel>(context)?.loadSeriesOfComic();
   }
 
   @override

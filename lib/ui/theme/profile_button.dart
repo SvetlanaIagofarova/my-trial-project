@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_trial_project/ui/enums/profile_menu_actions.dart';
-import 'package:my_trial_project/ui/navigation/main_navigation.dart';
 import 'package:sizer/sizer.dart';
 
 class ProfileItemInfo {
@@ -67,7 +66,7 @@ class _ProfileButtonState extends State<ProfileButton> {
       onSelected: (value) {
         switch (value) {
           case ProfileMenuAction.login:
-          Navigator.of(context).pushNamed(MainNavigationRouteNames.loginView);
+          // Navigator.of(context).pushNamed(MainNavigationRouteNames.loginView);
             break;
           case ProfileMenuAction.settings:
             break;

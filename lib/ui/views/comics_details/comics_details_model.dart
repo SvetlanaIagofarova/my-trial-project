@@ -17,9 +17,6 @@ class ComicDetailsModel extends ChangeNotifier {
   WrapperObject? _comicDetailsWrapper;
   WrapperObject? get comicDetailsWrapper => _comicDetailsWrapper;
 
-  int? _getTotalSeriesNumber;
-  int? get getTotalSeriesNumber => _getTotalSeriesNumber; 
-
   late DateFormat _dateFormat;
 
   String stringFromDate(DateTime? date) =>
@@ -47,7 +44,6 @@ class ComicDetailsModel extends ChangeNotifier {
           _comicDetails?.series?.resourceURI ??
               'https://gateway.marvel.com/v1/public/series/34718');
       _seriesOfComics.addAll(seriesResponse.data.comics);
-      _getTotalSeriesNumber = seriesResponse.data.total;
       notifyListeners();
     } catch (e) {
       print('smth bad with series happened');

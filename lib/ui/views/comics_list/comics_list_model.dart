@@ -29,7 +29,7 @@ class ComicsListModel extends ChangeNotifier {
       );
       _comics.addAll(comicsResponse.data.comics);
       _currentOffset = comicsResponse.data.offset;
-      _totalNumber = comicsResponse.data.total;
+      _totalNumber = comicsResponse.data.count ?? comicsResponse.data.total;
       _isLoadingInProgress = false;
       notifyListeners();
     } catch (e) {

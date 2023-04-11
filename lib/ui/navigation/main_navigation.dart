@@ -1,29 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/ui/tools/provider_template.dart';
-import 'package:my_trial_project/ui/views/auth/login/login_view.dart';
-import 'package:my_trial_project/ui/views/auth/register/register_view.dart';
-import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
-import 'package:my_trial_project/ui/views/main_screen/main_screen_model.dart';
-import 'package:my_trial_project/ui/views/main_screen/main_screen_widget.dart';
-import 'package:my_trial_project/ui/views/comics_details/comics_details_widget.dart';
+import 'package:my_trial_project/domain/factories/screen_factory.dart';
 
 abstract class MainNavigationRouteNames {
   static const mainScreen = '/';
-  static const loginView = '/login_view';
-  static const registerView = '/register_view';
   static const comicsDetailsView = '/comics_details';
 }
 
 class MainNavigation {
-  final initialRoute = MainNavigationRouteNames.mainScreen;
+  static final _screenFactory = ScreenFactory();
 
   final routes = <String, Widget Function(BuildContext)>{
-    MainNavigationRouteNames.mainScreen: (context) => NotifierProvider(
-          create: () => MainScreenModel(),
-          child: const MainScreenWidget(),
-        ),
-    MainNavigationRouteNames.loginView: (context) => const LoginView(),
-    MainNavigationRouteNames.registerView: (context) => const RegisterView(),
+    MainNavigationRouteNames.mainScreen: (_) => _screenFactory.makeMainScreen(),
   };
 
   Route<Object> onGenerateRoute(RouteSettings settings) {
@@ -32,10 +19,7 @@ class MainNavigation {
         final arguments = settings.arguments;
         final comicsId = arguments is int ? arguments : 0;
         return MaterialPageRoute(
-          builder: (context) => NotifierProvider(
-            create: () => ComicDetailsModel(comicsId),
-            child: const ComicsDetailsWidget(),
-          ),
+          builder: (_) => _screenFactory.makeComicDetailsScreen(comicsId),
         );
       default:
         const widget = Text('Navigation error!!!');

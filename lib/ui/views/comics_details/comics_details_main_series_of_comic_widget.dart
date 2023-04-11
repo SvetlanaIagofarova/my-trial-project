@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:my_trial_project/domain/api_client/api_client.dart';
-import 'package:my_trial_project/domain/entity/wrapper_object.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
 import 'package:sizer/sizer.dart';
@@ -53,7 +52,7 @@ class _SeriesOfComicWidget extends StatelessWidget {
 
     if (model == null) return const SizedBox.shrink();
     return ListView.builder(
-      itemCount: model.getTotalSeriesNumber,
+      itemCount: model.seriesOfComics.length,
       itemExtent: 120,
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) {

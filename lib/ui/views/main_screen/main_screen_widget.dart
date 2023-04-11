@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:my_trial_project/ui/tools/elements/buttons/profile_button.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_list/comics_list_model.dart';
 import 'package:my_trial_project/ui/views/comics_list/comics_list_widget.dart';
 import 'package:my_trial_project/ui/views/news/news_widget.dart';
 import 'package:my_trial_project/ui/views/tv_show_list/tv_show_list_widget.dart';
+import 'package:my_trial_project/ui/theme/profile_button.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
