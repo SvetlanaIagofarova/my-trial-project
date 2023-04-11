@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_trial_project/domain/api_client/api_client.dart';
+import 'package:my_trial_project/domain/api_client/comic_api_client.dart';
 import 'package:my_trial_project/domain/entity/comics.dart';
 import 'package:my_trial_project/ui/navigation/main_navigation.dart';
 
 class ComicsListModel extends ChangeNotifier {
-  final _apiClient = ApiClient();
+  final _apiClient = ComicApiClient();
   final _comics = <Comics>[];
   List<Comics> get comics => List.unmodifiable(_comics);
   final _dateFormat = DateFormat.yMMMd();

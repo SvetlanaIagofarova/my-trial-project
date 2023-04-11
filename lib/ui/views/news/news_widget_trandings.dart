@@ -6,10 +6,10 @@ class NewsWidgetTrandings extends StatefulWidget {
   const NewsWidgetTrandings({Key? key}) : super(key: key);
 
   @override
-  _NewsWidgetTrandingsState createState() => _NewsWidgetTrandingsState();
+  NewsWidgetTrandingsState createState() => NewsWidgetTrandingsState();
 }
 
-class _NewsWidgetTrandingsState extends State<NewsWidgetTrandings> {
+class NewsWidgetTrandingsState extends State<NewsWidgetTrandings> {
   final _catrgory = 'today';
   @override
   Widget build(BuildContext context) {

@@ -5,10 +5,10 @@ class NewsWidgetTrailers extends StatefulWidget {
   const NewsWidgetTrailers({Key? key}) : super(key: key);
 
   @override
-  _NewsWidgetTrailersState createState() => _NewsWidgetTrailersState();
+  NewsWidgetTrailersState createState() => NewsWidgetTrailersState();
 }
 
-class _NewsWidgetTrailersState extends State<NewsWidgetTrailers> {
+class NewsWidgetTrailersState extends State<NewsWidgetTrailers> {
   final _catrgory = 'streaming';
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:my_trial_project/domain/api_client/api_client.dart';
+import 'package:my_trial_project/domain/api_client/comic_api_client.dart';
 import 'package:my_trial_project/domain/entity/comics.dart';
 import 'package:my_trial_project/domain/entity/wrapper_object.dart';
 
 class ComicDetailsModel extends ChangeNotifier {
-  final _apiClient = ApiClient();
+  final _apiClient = ComicApiClient();
   final int comicId;
 
   Comics? _comicDetails;

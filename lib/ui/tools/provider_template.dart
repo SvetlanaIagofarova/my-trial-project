@@ -13,8 +13,8 @@ class NotifierProvider<Model extends ChangeNotifier> extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _NotifierProviderState<Model> createState() =>
-      _NotifierProviderState<Model>();
+  NotifierProviderState<Model> createState() =>
+      NotifierProviderState<Model>();
 
   static Model? watch<Model extends ChangeNotifier>(BuildContext context) {
     return context
@@ -31,7 +31,7 @@ class NotifierProvider<Model extends ChangeNotifier> extends StatefulWidget {
   }
 }
 
-class _NotifierProviderState<Model extends ChangeNotifier>
+class NotifierProviderState<Model extends ChangeNotifier>
     extends State<NotifierProvider<Model>> {
   late final Model _model;
 

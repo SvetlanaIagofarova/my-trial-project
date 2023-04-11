@@ -11,10 +11,10 @@ class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
 
   @override
-  _MainScreenWidgetState createState() => _MainScreenWidgetState();
+  MainScreenWidgetState createState() => MainScreenWidgetState();
 }
 
-class _MainScreenWidgetState extends State<MainScreenWidget> {
+class MainScreenWidgetState extends State<MainScreenWidget> {
   int _selectedTab = 0;
   Widget _title = const Text('MARVEL');
   final comicsListModel = ComicsListModel();

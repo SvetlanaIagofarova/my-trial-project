@@ -22,10 +22,10 @@ class TVShowListWidget extends StatefulWidget {
   const TVShowListWidget({Key? key}) : super(key: key);
 
   @override
-  _TVShowListWidgetState createState() => _TVShowListWidgetState();
+  TVShowListWidgetState createState() => TVShowListWidgetState();
 }
 
-class _TVShowListWidgetState extends State<TVShowListWidget> {
+class TVShowListWidgetState extends State<TVShowListWidget> {
   final _movies = [
     TVShow(
       id: 1,

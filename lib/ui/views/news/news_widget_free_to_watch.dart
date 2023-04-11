@@ -6,10 +6,10 @@ class NewsWidgetFreeToWatch extends StatefulWidget {
   const NewsWidgetFreeToWatch({Key? key}) : super(key: key);
 
   @override
-  _NewsWidgetFreeToWatchState createState() => _NewsWidgetFreeToWatchState();
+  NewsWidgetFreeToWatchState createState() => NewsWidgetFreeToWatchState();
 }
 
-class _NewsWidgetFreeToWatchState extends State<NewsWidgetFreeToWatch> {
+class NewsWidgetFreeToWatchState extends State<NewsWidgetFreeToWatch> {
   final _catrgory = 'movies';
   @override
   Widget build(BuildContext context) {

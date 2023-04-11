@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/domain/api_client/api_client.dart';
+import 'package:my_trial_project/domain/api_client/image_getter.dart';
 import 'package:my_trial_project/domain/entity/comics/creator_summary.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
@@ -46,7 +46,7 @@ class _TopPosterWidget extends StatelessWidget {
         ? AspectRatio(
             aspectRatio: 0.95,
             child: Image.network(
-              ApiClient.imagePortraitLandscapeUrl(imagePath, imageExtension),
+              ImageGetter.imagePortraitLandscapeUrl(imagePath, imageExtension),
             ),
           )
         : const SizedBox.shrink();

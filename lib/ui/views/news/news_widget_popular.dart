@@ -6,10 +6,10 @@ class NewsWidgetPopular extends StatefulWidget {
   const NewsWidgetPopular({Key? key}) : super(key: key);
 
   @override
-  _NewsWidgetPopularState createState() => _NewsWidgetPopularState();
+  NewsWidgetPopularState createState() => NewsWidgetPopularState();
 }
 
-class _NewsWidgetPopularState extends State<NewsWidgetPopular> {
+class NewsWidgetPopularState extends State<NewsWidgetPopular> {
   final _catrgory = 'movies';
   @override
   Widget build(BuildContext context) {

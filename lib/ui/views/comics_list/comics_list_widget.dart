@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/domain/api_client/api_client.dart';
+import 'package:my_trial_project/domain/api_client/image_getter.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_list/comics_list_model.dart';
 import 'package:sizer/sizer.dart';
@@ -51,7 +51,7 @@ class ComicsListWidget extends StatelessWidget {
                     ),
                     child: imagePath != null
                         ? Image.network(
-                            ApiClient.imagePortraitFantasticUrl(
+                            ImageGetter.imagePortraitFantasticUrl(
                                 imagePath, imageExtension),
                           )
                         : const SizedBox.shrink(),
