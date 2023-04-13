@@ -3,7 +3,7 @@ import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_details/comic_details_more_details_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_main_info_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_main_series_of_comic_widget.dart';
-import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
+import 'package:my_trial_project/ui/views/comics_details/comics_details_view_model.dart';
 import 'package:sizer/sizer.dart';
 
 class ComicsDetailsWidget extends StatefulWidget {
@@ -17,7 +17,7 @@ class _ComicsDetailsWidgetState extends State<ComicsDetailsWidget> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    NotifierProvider.read<ComicDetailsModel>(context)?.loadComicDetails();
+    NotifierProvider.read<ComicDetailsViewModel>(context)?.loadComicDetails();
   }
 
   @override
@@ -39,7 +39,7 @@ class _TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
     return Text(model?.comicDetails?.title ?? 'Loading...');
   }
 }
@@ -49,7 +49,7 @@ class _BodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
     final comicDetails = model?.comicDetails;
     if (comicDetails == null) {
       return const Center(

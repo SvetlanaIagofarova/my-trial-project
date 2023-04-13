@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_trial_project/domain/api_client/image_getter.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
-import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
+import 'package:my_trial_project/ui/views/comics_details/comics_details_view_model.dart';
 import 'package:sizer/sizer.dart';
 
 class ComicsDetailsSeriesOfComicWidget extends StatelessWidget {
@@ -48,7 +48,7 @@ class _SeriesOfComicWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
 
     if (model == null) return const SizedBox.shrink();
     return ListView.builder(
@@ -68,7 +68,7 @@ class _SeriesOfComicListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.read<ComicDetailsModel>(context);
+    final model = NotifierProvider.read<ComicDetailsViewModel>(context);
     // model!.showSeriesOfComicByIndex(comicIndex);
     final comicOfSeries = model!.seriesOfComics[comicIndex];
     final imagePath = comicOfSeries.thumbnail?.path;

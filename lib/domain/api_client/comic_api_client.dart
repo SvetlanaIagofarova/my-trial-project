@@ -10,6 +10,9 @@ class ComicApiClient {
     int offset,
     bool noVariants,
     String orderBy,
+    String ts,
+    String apikey,
+    String hash,
   ) async {
     parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
@@ -35,6 +38,9 @@ class ComicApiClient {
 
   Future<WrapperObject> comicDetails(
     int comicId,
+    String ts,
+    String apikey,
+    String hash,
   ) async {
     parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;
@@ -56,6 +62,9 @@ class ComicApiClient {
 
   Future<WrapperObject> seriesOfComic(
     String seriesUrl,
+    String ts,
+    String apikey,
+    String hash,
   ) async {
     parser(dynamic json) {
       final jsonMap = json as Map<String, dynamic>;

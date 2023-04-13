@@ -1,19 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'comics.dart';
+part of 'comic.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Comics _$ComicsFromJson(Map<String, dynamic> json) => Comics(
+Comic _$ComicFromJson(Map<String, dynamic> json) => Comic(
       json['id'] as int,
       json['digitalId'] as int?,
       json['title'] as String,
       (json['issueNumber'] as num?)?.toDouble(),
       json['variantDescription'] as String?,
       json['description'] as String?,
-      Comics._parseDateFromString(json['modified'] as String?),
+      Comic._parseDateFromString(json['modified'] as String?),
       json['isbn'] as String?,
       json['upc'] as String?,
       json['diamondCode'] as String?,
@@ -63,7 +63,7 @@ Comics _$ComicsFromJson(Map<String, dynamic> json) => Comics(
           : EventList.fromJson(json['events'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$ComicsToJson(Comics instance) => <String, dynamic>{
+Map<String, dynamic> _$ComicToJson(Comic instance) => <String, dynamic>{
       'id': instance.id,
       'digitalId': instance.digitalId,
       'title': instance.title,

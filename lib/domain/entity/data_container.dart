@@ -1,4 +1,4 @@
-import 'package:my_trial_project/domain/entity/comics.dart';
+import 'package:my_trial_project/domain/entity/comic.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'data_container.g.dart';
@@ -10,14 +10,14 @@ class DataContainer {
   final int total;
   final int? count;
   @JsonKey(name: 'results')
-  final List<Comics> comics;
+  final List<Comic> comic;
 
   DataContainer(
     this.offset,
     this.limit,
     this.total,
     this.count,
-    this.comics,
+    this.comic,
   );
 
   factory DataContainer.fromJson(Map<String, dynamic> json) =>

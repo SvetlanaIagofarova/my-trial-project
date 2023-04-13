@@ -13,7 +13,7 @@ DataContainer _$DataContainerFromJson(Map<String, dynamic> json) =>
       json['total'] as int,
       json['count'] as int?,
       (json['results'] as List<dynamic>)
-          .map((e) => Comics.fromJson(e as Map<String, dynamic>))
+          .map((e) => Comic.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -23,5 +23,5 @@ Map<String, dynamic> _$DataContainerToJson(DataContainer instance) =>
       'limit': instance.limit,
       'total': instance.total,
       'count': instance.count,
-      'results': instance.comics.map((e) => e.toJson()).toList(),
+      'results': instance.comic.map((e) => e.toJson()).toList(),
     };

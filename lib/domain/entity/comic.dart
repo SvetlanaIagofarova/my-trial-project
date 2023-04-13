@@ -11,10 +11,10 @@ import 'package:my_trial_project/domain/entity/comics/thumbnail.dart';
 import 'package:my_trial_project/domain/entity/comics/url.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'comics.g.dart';
+part 'comic.g.dart';
 
 @JsonSerializable(explicitToJson: true)
-class Comics {
+class Comic {
   final int id;
   final int? digitalId;
   final String title;
@@ -45,7 +45,7 @@ class Comics {
   final StoryList? stories;
   final EventList? events;
 
-  Comics(
+  Comic(
     this.id,
     this.digitalId,
     this.title,
@@ -76,9 +76,9 @@ class Comics {
     this.events,
   );
 
-  factory Comics.fromJson(Map<String, dynamic> json) => _$ComicsFromJson(json);
+  factory Comic.fromJson(Map<String, dynamic> json) => _$ComicFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ComicsToJson(this);
+  Map<String, dynamic> toJson() => _$ComicToJson(this);
 
   static DateTime? _parseDateFromString(String? rawDate) {
     if (rawDate == null || rawDate.isEmpty) return null;

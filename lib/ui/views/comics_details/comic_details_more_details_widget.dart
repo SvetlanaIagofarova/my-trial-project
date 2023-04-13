@@ -4,7 +4,7 @@ import 'package:my_trial_project/domain/entity/comics/creator_summary.dart';
 import 'package:my_trial_project/ui/theme/app_colors.dart';
 import 'package:my_trial_project/ui/tools/attribution_text.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
-import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
+import 'package:my_trial_project/ui/views/comics_details/comics_details_view_model.dart';
 import 'package:sizer/sizer.dart';
 
 class MoreDetailsWidget extends StatelessWidget {
@@ -150,7 +150,7 @@ class _ExtendedCreditsAndInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
     if (model == null) return const SizedBox.shrink();
     final formatValue = model.comicDetails?.format;
     final priceValue =
@@ -206,7 +206,7 @@ class _StoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
     if (model == null) return const SizedBox.shrink();
     final listOfCreators = model.comicDetails?.creators?.items;
     final writersName = listOfCreators
@@ -300,7 +300,7 @@ class _CoverInformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
     if (model == null) return const SizedBox.shrink();
     final listOfCreators = model.comicDetails?.creators?.items;
     final coloristCoverName = listOfCreators

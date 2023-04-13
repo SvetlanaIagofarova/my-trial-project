@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_trial_project/domain/api_client/image_getter.dart';
 import 'package:my_trial_project/domain/entity/comics/creator_summary.dart';
 import 'package:my_trial_project/ui/tools/provider_template.dart';
-import 'package:my_trial_project/ui/views/comics_details/comics_details_model.dart';
+import 'package:my_trial_project/ui/views/comics_details/comics_details_view_model.dart';
 import 'package:sizer/sizer.dart';
 
 class ComicsDetailsMainInfoWidget extends StatelessWidget {
@@ -38,7 +38,7 @@ class _TopPosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
     if (model == null) return const SizedBox.shrink();
     final imagePath = model.comicDetails?.thumbnail?.path;
     final imageExtension = model.comicDetails?.thumbnail?.imageExtension ?? '';
@@ -58,7 +58,7 @@ class _ComicsNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
     return Text(
       model?.comicDetails?.title ?? '',
       maxLines: 3,
@@ -78,7 +78,7 @@ class _AuthorsDescriptionPlaceholderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsModel>(context);
+    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
     if (model == null) return const SizedBox.shrink();
     final onsaleDate = model.comicDetails?.dates?.map((i) => i.date).first;
     final listOfCreators = model.comicDetails?.creators?.items;
