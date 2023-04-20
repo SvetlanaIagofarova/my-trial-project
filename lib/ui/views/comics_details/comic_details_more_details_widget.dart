@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/domain/entity/comics/comic_date.dart';
-import 'package:my_trial_project/domain/entity/comics/creator_summary.dart';
 import 'package:my_trial_project/ui/theme/app_colors.dart';
 import 'package:my_trial_project/ui/tools/attribution_text.dart';
-import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_view_model.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class MoreDetailsWidget extends StatelessWidget {
@@ -150,19 +148,12 @@ class _ExtendedCreditsAndInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
-    if (model == null) return const SizedBox.shrink();
-    final formatValue = model.comicDetails?.format;
-    final priceValue =
-        model.comicDetails?.prices?.map((p) => p.price).last.toString();
-    final upcValue = model.comicDetails?.upc;
-    final focDateValue = model.comicDetails?.dates
-        ?.firstWhere((date) => date.type == 'focDate',
-            orElse: () => ComicDate(
-                  '',
-                  DateTime.now(),
-                ))
-        .date;
+    final extendedCreditsAndInfo = context.select(
+        (ComicDetailsViewModel model) => model.data.extendedCreditsAndInfo);
+    final formatValue = extendedCreditsAndInfo.formatValue;
+    final priceValue = extendedCreditsAndInfo.priceValue;
+    final upcValue = extendedCreditsAndInfo.upcValue;
+    final focDateValue = extendedCreditsAndInfo.focDateValue;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -172,30 +163,26 @@ class _ExtendedCreditsAndInfoWidget extends StatelessWidget {
           detail: 'Rating: ',
           value: 'Rated T',
         ),
-        formatValue != ''
-            ? _DescriptionStringWidget(
-                detail: 'Format: ',
-                value: formatValue ?? '',
-              )
-            : const SizedBox.shrink(),
-        priceValue != ''
-            ? _DescriptionStringWidget(
-                detail: 'Price: \$',
-                value: priceValue ?? '',
-              )
-            : const SizedBox.shrink(),
-        upcValue != ''
-            ? _DescriptionStringWidget(
-                detail: 'UPC: ',
-                value: upcValue ?? '',
-              )
-            : const SizedBox.shrink(),
-        focDateValue != DateTime.now()
-            ? _DescriptionStringWidget(
-                detail: 'FOC Date: ',
-                value: model.stringFromDate(focDateValue),
-              )
-            : const SizedBox.shrink(),
+        if (formatValue != '')
+          _DescriptionStringWidget(
+            detail: 'Format: ',
+            value: formatValue ?? '',
+          ),
+        if (priceValue != '')
+          _DescriptionStringWidget(
+            detail: 'Price: \$',
+            value: priceValue ?? '',
+          ),
+        if (upcValue != '')
+          _DescriptionStringWidget(
+            detail: 'UPC: ',
+            value: upcValue ?? '',
+          ),
+        if (focDateValue != null)
+          _DescriptionStringWidget(
+            detail: 'FOC Date: ',
+            value: focDateValue,
+          ),
       ],
     );
   }
@@ -206,90 +193,50 @@ class _StoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
-    if (model == null) return const SizedBox.shrink();
-    final listOfCreators = model.comicDetails?.creators?.items;
-    final writersName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'writer',
-          orElse: () => CreatorSummary('', 'unknown', ''),
-        )
-        .name;
-    final inkersName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'inker',
-          orElse: () => listOfCreators.firstWhere(
-            (item) => item.role == 'inker (cover)',
-            orElse: () => CreatorSummary('', 'unknown', ''),
-          ),
-        )
-        .name;
-    final coloristsName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'colorist' || item.role == 'colorist (cover)',
-          orElse: () => CreatorSummary('', 'unknown', ''),
-        )
-        .name;
-    final letterersName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'letterer',
-          orElse: () => CreatorSummary('', 'unknown', ''),
-        )
-        .name;
-    final pencilersName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'inker' || item.role == 'penciler (cover)',
-          orElse: () => CreatorSummary('', 'unknown', ''),
-        )
-        .name;
-    final editorsName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'editor',
-          orElse: () => CreatorSummary('', 'unknown', ''),
-        )
-        .name;
+    final storiesData =
+        context.select((ComicDetailsViewModel model) => model.data.storiesData);
+    final writersName = storiesData.writersName;
+    final inkersName = storiesData.inkersName;
+    final coloristsName = storiesData.coloristsName;
+    final letterersName = storiesData.letterersName;
+    final pencilersName = storiesData.pencilersName;
+    final editorsName = storiesData.editorsName;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _subtitleDetailsWidget('STORIES'),
         SizedBox(height: 3.0.h),
-        writersName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Writer: ',
-                value: writersName ?? '',
-              )
-            : const SizedBox.shrink(),
-        inkersName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Inker: ',
-                value: inkersName ?? '',
-              )
-            : const SizedBox.shrink(),
-        coloristsName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Colorist: ',
-                value: coloristsName ?? '',
-              )
-            : const SizedBox.shrink(),
-        letterersName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Letterer: ',
-                value: letterersName ?? '',
-              )
-            : const SizedBox.shrink(),
-        pencilersName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Penciler: ',
-                value: pencilersName ?? '',
-              )
-            : const SizedBox.shrink(),
-        editorsName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Editor: ',
-                value: editorsName ?? '',
-              )
-            : const SizedBox.shrink(),
+        if (writersName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Writer: ',
+            value: writersName ?? '',
+          ),
+        if (inkersName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Inker: ',
+            value: inkersName ?? '',
+          ),
+        if (coloristsName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Colorist: ',
+            value: coloristsName ?? '',
+          ),
+        if (letterersName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Letterer: ',
+            value: letterersName ?? '',
+          ),
+        if (pencilersName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Penciler: ',
+            value: pencilersName ?? '',
+          ),
+        if (editorsName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Editor: ',
+            value: editorsName ?? '',
+          ),
       ],
     );
   }
@@ -300,75 +247,38 @@ class _CoverInformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
-    if (model == null) return const SizedBox.shrink();
-    final listOfCreators = model.comicDetails?.creators?.items;
-    final coloristCoverName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'colorist (cover)',
-          orElse: () => listOfCreators.firstWhere(
-            (item) =>
-                item.role == 'inker (cover)' || item.role == 'penciler (cover)',
-            orElse: () => CreatorSummary('', 'unknown', ''),
-          ),
-        )
-        .name;
-    final inkerCoverName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'inker (cover)',
-          orElse: () => listOfCreators.firstWhere(
-            (item) =>
-                item.role == 'colorist (cover)' ||
-                item.role == 'penciler (cover)',
-            orElse: () => CreatorSummary('', 'unknown', ''),
-          ),
-        )
-        .name;
-    final editorsName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'editor',
-          orElse: () => CreatorSummary('', 'unknown', ''),
-        )
-        .name;
-    final pencilerCoverName = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'penciler (cover)',
-          orElse: () => listOfCreators.firstWhere(
-            (item) =>
-                item.role == 'colorist (cover)' || item.role == 'inker (cover)',
-            orElse: () => CreatorSummary('', 'unknown', ''),
-          ),
-        )
-        .name;
+    final coverInformation = context
+        .select((ComicDetailsViewModel model) => model.data.coverInformation);
+    final coloristCoverName = coverInformation.coloristCoverName;
+    final inkerCoverName = coverInformation.inkerCoverName;
+    final editorsName = coverInformation.editorsName;
+    final pencilerCoverName = coverInformation.pencilerCoverName;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _subtitleDetailsWidget('COVER INFORMATION'),
         SizedBox(height: 3.0.h),
-        coloristCoverName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Colorist (cover): ',
-                value: coloristCoverName ?? '',
-              )
-            : const SizedBox.shrink(),
-        inkerCoverName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Inker (cover): ',
-                value: inkerCoverName ?? '',
-              )
-            : const SizedBox.shrink(),
-        editorsName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Editor: ',
-                value: editorsName ?? '',
-              )
-            : const SizedBox.shrink(),
-        pencilerCoverName != 'unknown'
-            ? _DescriptionButtonWidget(
-                detail: 'Penciler (cover): ',
-                value: pencilerCoverName ?? '',
-              )
-            : const SizedBox.shrink(),
+        if (coloristCoverName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Colorist (cover): ',
+            value: coloristCoverName ?? '',
+          ),
+        if (inkerCoverName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Inker (cover): ',
+            value: inkerCoverName ?? '',
+          ),
+        if (editorsName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Editor: ',
+            value: editorsName ?? '',
+          ),
+        if (pencilerCoverName != 'unknown')
+          _DescriptionButtonWidget(
+            detail: 'Penciler (cover): ',
+            value: pencilerCoverName ?? '',
+          ),
       ],
     );
   }

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/ui/tools/provider_template.dart'
-    as previous_provider;
 import 'package:my_trial_project/ui/views/comics_details/comics_details_view_model.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_widget.dart';
 import 'package:my_trial_project/ui/views/comics_list/comics_list_view_model.dart';
@@ -16,8 +14,8 @@ class ScreenFactory {
   }
 
   Widget makeComicDetailsScreen(int comicsId) {
-    return previous_provider.NotifierProvider(
-      create: () => ComicDetailsViewModel(comicsId),
+    return ChangeNotifierProvider(
+      create: (_) => ComicDetailsViewModel(comicsId),
       child: const ComicsDetailsWidget(),
     );
   }

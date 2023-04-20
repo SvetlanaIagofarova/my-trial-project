@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_trial_project/domain/api_client/image_getter.dart';
-import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_view_model.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class ComicsDetailsSeriesOfComicWidget extends StatelessWidget {
@@ -48,11 +48,10 @@ class _SeriesOfComicWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
-
-    if (model == null) return const SizedBox.shrink();
+    final length = context
+        .select((ComicDetailsViewModel model) => model.seriesOfComic.length);
     return ListView.builder(
-      itemCount: model.seriesOfComics.length,
+      itemCount: length,
       itemExtent: 120,
       scrollDirection: Axis.horizontal,
       itemBuilder: (BuildContext context, int index) {
@@ -68,11 +67,10 @@ class _SeriesOfComicListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.read<ComicDetailsViewModel>(context);
-    // model!.showSeriesOfComicByIndex(comicIndex);
-    final comicOfSeries = model!.seriesOfComics[comicIndex];
-    final imagePath = comicOfSeries.thumbnail?.path;
-    final imageExtension = comicOfSeries.thumbnail?.imageExtension ?? '';
+    final seriesOfComic = context
+        .select((ComicDetailsViewModel model) => model.seriesOfComic[comicIndex]);
+    final imagePath = seriesOfComic.thumbnail?.path;
+    final imageExtension = seriesOfComic.thumbnail?.imageExtension ?? '';
     return Padding(
       padding: EdgeInsets.all(2.0.h),
       child: DecoratedBox(
@@ -107,7 +105,7 @@ class _SeriesOfComicListWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      comicOfSeries.title,
+                      seriesOfComic.title,
                       maxLines: 3,
                       style: TextStyle(
                         fontSize: 2.0.h,
@@ -115,7 +113,7 @@ class _SeriesOfComicListWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 7),
                     Text(
-                      comicOfSeries.creators?.items
+                      seriesOfComic.creators?.items
                               ?.map((i) => i.name)
                               .join(', ') ??
                           '',

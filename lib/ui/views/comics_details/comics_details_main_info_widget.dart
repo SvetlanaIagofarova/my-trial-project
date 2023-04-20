@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_trial_project/domain/api_client/image_getter.dart';
 import 'package:my_trial_project/domain/entity/comics/creator_summary.dart';
-import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_view_model.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class ComicsDetailsMainInfoWidget extends StatelessWidget {
@@ -26,7 +26,7 @@ class ComicsDetailsMainInfoWidget extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.all(3.0.h),
-          child: const _AuthorsDescriptionPlaceholderWidget(),
+          child: const _AuthorsAndDateDescriptionPlaceholderWidget(),
         ),
       ],
     );
@@ -38,11 +38,11 @@ class _TopPosterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
-    if (model == null) return const SizedBox.shrink();
-    final imagePath = model.comicDetails?.thumbnail?.path;
-    final imageExtension = model.comicDetails?.thumbnail?.imageExtension ?? '';
-    return imagePath != null
+    final imageFullPath =
+        context.select((ComicDetailsViewModel model) => model.data.imageData);
+    final imagePath = imageFullPath.imagePath;
+    final imageExtension = imageFullPath.imageExtension;
+    return (imagePath != null && imageExtension != null)
         ? AspectRatio(
             aspectRatio: 0.95,
             child: Image.network(
@@ -58,9 +58,10 @@ class _ComicsNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
+    final title =
+        context.select((ComicDetailsViewModel model) => model.data.title);
     return Text(
-      model?.comicDetails?.title ?? '',
+      title,
       maxLines: 3,
       textAlign: TextAlign.center,
       style: TextStyle(
@@ -73,64 +74,43 @@ class _ComicsNameWidget extends StatelessWidget {
   }
 }
 
-class _AuthorsDescriptionPlaceholderWidget extends StatelessWidget {
-  const _AuthorsDescriptionPlaceholderWidget();
+class _AuthorsAndDateDescriptionPlaceholderWidget extends StatelessWidget {
+  const _AuthorsAndDateDescriptionPlaceholderWidget();
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
-    if (model == null) return const SizedBox.shrink();
-    final onsaleDate = model.comicDetails?.dates?.map((i) => i.date).first;
-    final listOfCreators = model.comicDetails?.creators?.items;
-    final writersNames = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'writer' || item.role == 'writer (cover)',
-          orElse: () => CreatorSummary('', 'unknown', ''),
-        )
-        .name;
-    final pencilersNames = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'inker' || item.role == 'penciler (cover)',
-          orElse: () => CreatorSummary('', 'unknown', ''),
-        )
-        .name;
-    final coverArtistsNames = listOfCreators
-        ?.firstWhere(
-          (item) => item.role == 'penciler (cover)',
-          orElse: () => listOfCreators.firstWhere(
-            (item) => item.role == 'inker (cover)',
-            orElse: () => CreatorSummary('', 'unknown', ''),
-          ),
-        )
-        .name;
+    final authorsAndDate = context
+        .select((ComicDetailsViewModel model) => model.data.authorsAndDate);
+
+    final onsaleDate = authorsAndDate.onsaleDate ?? '';
+    final writersNames = authorsAndDate.onsaleDate ?? '';
+    final pencilersNames = authorsAndDate.pencilersNames ?? '';
+    final coverArtistsNames = authorsAndDate.coverArtistsNames ?? '';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _AuthorsDescriptionWidget(
           role: 'Published:',
-          name: model.stringFromDate(onsaleDate),
+          name: onsaleDate,
         ),
         SizedBox(height: 2.5.h),
-        writersNames != 'unknown'
-            ? _AuthorsDescriptionWidget(
-                role: 'Writer:',
-                name: writersNames ?? '',
-              )
-            : const SizedBox.shrink(),
+        if (writersNames != 'unknown')
+          _AuthorsDescriptionWidget(
+            role: 'Writer:',
+            name: writersNames,
+          ),
         SizedBox(height: 2.5.h),
-        pencilersNames != 'unknown'
-            ? _AuthorsDescriptionWidget(
-                role: 'Penciler:',
-                name: pencilersNames ?? '',
-              )
-            : const SizedBox.shrink(),
+        if (pencilersNames != 'unknown')
+          _AuthorsDescriptionWidget(
+            role: 'Penciler:',
+            name: pencilersNames,
+          ),
         SizedBox(height: 2.5.h),
-        coverArtistsNames != 'unknown'
-            ? _AuthorsDescriptionWidget(
-                role: 'Cover Artist:',
-                name: coverArtistsNames ?? '',
-              )
-            : const SizedBox.shrink(),
+        if (coverArtistsNames != 'unknown')
+          _AuthorsDescriptionWidget(
+            role: 'Cover Artist:',
+            name: coverArtistsNames,
+          ),
         SizedBox(height: 2.0.h),
       ],
     );

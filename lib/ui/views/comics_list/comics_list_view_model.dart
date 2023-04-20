@@ -37,19 +37,21 @@ class ComicsListViewModel extends ChangeNotifier {
   final _dateFormat = DateFormat.yMMMd();
 
   ComicsListViewModel() {
-    _latestComicPaginator = Paginator<Comic>((offset) async {
-      final result = await _comicService.latestComics(
-        _dateDescriptor,
-        offset,
-        _noVariants,
-        _orderBy,
-      );
-      return PaginatorResult(
-        data: result.data.comic,
-        currentOffset: result.data.offset,
-        totalNumber: result.data.total,
-      );
-    });
+    _latestComicPaginator = Paginator<Comic>(
+      (offset) async {
+        final result = await _comicService.latestComics(
+          _dateDescriptor,
+          offset,
+          _noVariants,
+          _orderBy,
+        );
+        return PaginatorResult(
+          data: result.data.comic,
+          currentOffset: result.data.offset,
+          totalNumber: result.data.total,
+        );
+      },
+    );
   }
 
   Future<void> loadComics() async {

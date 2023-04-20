@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_trial_project/ui/tools/provider_template.dart';
 import 'package:my_trial_project/ui/views/comics_details/comic_details_more_details_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_main_info_widget.dart';
-import 'package:my_trial_project/ui/views/comics_details/comics_details_main_series_of_comic_widget.dart';
+import 'package:my_trial_project/ui/views/comics_details/comics_details_series_of_comic_widget.dart';
 import 'package:my_trial_project/ui/views/comics_details/comics_details_view_model.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class ComicsDetailsWidget extends StatefulWidget {
@@ -17,7 +17,9 @@ class _ComicsDetailsWidgetState extends State<ComicsDetailsWidget> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    NotifierProvider.read<ComicDetailsViewModel>(context)?.loadComicDetails();
+    Future.microtask(
+      () => context.read<ComicDetailsViewModel>().loadComicDetails(),
+    );
   }
 
   @override
@@ -39,8 +41,9 @@ class _TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
-    return Text(model?.comicDetails?.title ?? 'Loading...');
+    final title =
+        context.select((ComicDetailsViewModel model) => model.data.title);
+    return Text(title);
   }
 }
 
@@ -49,9 +52,9 @@ class _BodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<ComicDetailsViewModel>(context);
-    final comicDetails = model?.comicDetails;
-    if (comicDetails == null) {
+    final isLoading =
+        context.select((ComicDetailsViewModel model) => model.data.isLoading);
+    if (isLoading) {
       return const Center(
         child: CircularProgressIndicator(),
       );
