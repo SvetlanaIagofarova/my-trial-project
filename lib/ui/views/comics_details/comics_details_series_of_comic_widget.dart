@@ -69,8 +69,9 @@ class _SeriesOfComicListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final seriesOfComic = context
         .select((ComicDetailsViewModel model) => model.seriesOfComic[comicIndex]);
-    final imagePath = seriesOfComic.thumbnail?.path;
-    final imageExtension = seriesOfComic.thumbnail?.imageExtension ?? '';
+    final title = seriesOfComic.title;
+    final imagePath = seriesOfComic.imagePath;
+    final imageExtension = seriesOfComic.imageExtension;
     return Padding(
       padding: EdgeInsets.all(2.0.h),
       child: DecoratedBox(
@@ -93,7 +94,7 @@ class _SeriesOfComicListWidget extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           child: Column(
             children: [
-              imagePath != null
+              imagePath != null && imageExtension != null
                   ? Image.network(
                       ImageGetter.imagePortraitFantasticUrl(
                           imagePath, imageExtension),
@@ -105,7 +106,7 @@ class _SeriesOfComicListWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      seriesOfComic.title,
+                      title ?? '',
                       maxLines: 3,
                       style: TextStyle(
                         fontSize: 2.0.h,
@@ -113,10 +114,7 @@ class _SeriesOfComicListWidget extends StatelessWidget {
                     ),
                     const SizedBox(height: 7),
                     Text(
-                      seriesOfComic.creators?.items
-                              ?.map((i) => i.name)
-                              .join(', ') ??
-                          '',
+                      seriesOfComic.creatorsNames ?? '',
                       style: TextStyle(
                         fontSize: 1.5.h,
                       ),

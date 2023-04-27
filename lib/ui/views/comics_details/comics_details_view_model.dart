@@ -6,10 +6,16 @@ import 'package:my_trial_project/domain/entity/comics/creator_summary.dart';
 import 'package:my_trial_project/domain/entity/wrapper_object.dart';
 import 'package:my_trial_project/domain/services/comic_service.dart';
 
-class SeriesOfComicCreatorsNamesData {
+class SeriesOfComicData {
+  final String? title;
+  final String? imagePath;
+  final String? imageExtension;
   final String? creatorsNames;
 
-  SeriesOfComicCreatorsNamesData({
+  SeriesOfComicData({
+    this.title,
+    this.imagePath,
+    this.imageExtension,
     this.creatorsNames,
   });
 }
@@ -95,8 +101,7 @@ class ComicDetailsData {
   ComicDetailsStoriesData storiesData = ComicDetailsStoriesData();
   ComicDetailsCoverInformationData coverInformation =
       ComicDetailsCoverInformationData();
-  SeriesOfComicCreatorsNamesData creatorsOfSeriesComicName =
-      SeriesOfComicCreatorsNamesData();
+  SeriesOfComicData creatorsOfSeriesComicName = SeriesOfComicData();
 }
 
 class ComicDetailsViewModel extends ChangeNotifier {
@@ -107,8 +112,9 @@ class ComicDetailsViewModel extends ChangeNotifier {
   Comic? _comicDetails;
   Comic? get comicDetails => _comicDetails;
 
-  final _seriesOfComic = <Comic>[];
-  List<Comic> get seriesOfComic => List.unmodifiable(_seriesOfComic);
+  final _seriesOfComic = <SeriesOfComicData>[];
+  List<SeriesOfComicData> get seriesOfComic =>
+      List.unmodifiable(_seriesOfComic);
 
   WrapperObject? _comicDetailsWrapper;
   WrapperObject? get comicDetailsWrapper => _comicDetailsWrapper;
@@ -255,10 +261,23 @@ class ComicDetailsViewModel extends ChangeNotifier {
           )
           .name,
     );
-    data.creatorsOfSeriesComicName = SeriesOfComicCreatorsNamesData(
-      creatorsNames: listOfCreators?.map((i) => i.name).join(', ') ?? '',
-    );
     notifyListeners();
+  }
+
+  SeriesOfComicData _makeSeriesData(Comic? comicDetails) {
+    final title = comicDetails?.title ?? 'Loading...';
+    final imagePath = comicDetails?.thumbnail?.path;
+    final imageExtension = comicDetails?.thumbnail?.imageExtension;
+    final creatorsNames = comicDetails?.creators?.items?.map((i) => i.name);
+    final listOfCreators =
+        creatorsNames != null ? creatorsNames.join(', ') : '';
+
+    return SeriesOfComicData(
+      title: title,
+      imageExtension: imageExtension,
+      imagePath: imagePath,
+      creatorsNames: listOfCreators,
+    );
   }
 
   Future<void> loadComicDetails() async {
@@ -281,11 +300,9 @@ class ComicDetailsViewModel extends ChangeNotifier {
       final seriesResponse = await _comicService.seriesOfComic(
           _comicDetails?.series?.resourceURI ??
               'https://gateway.marvel.com/v1/public/series/34718');
-      final comicOfSeries = _seriesOfComic.firstWhere(
-        (comic) => comic.id == comicId,
-      );
-      _seriesOfComic.addAll(seriesResponse.data.comic);
-      _updateDataOfComic(comicOfSeries);
+      final comicsFromResponse = seriesResponse.data.comic;
+      final mapOfResponse = comicsFromResponse.map(_makeSeriesData).toList();
+      _seriesOfComic.addAll(mapOfResponse);
       notifyListeners();
     } catch (e) {
       print('smth bad with series happened');
