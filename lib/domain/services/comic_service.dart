@@ -40,4 +40,6 @@ class ComicService {
         Configurations.apiKeyPublic,
         Configurations.hash(),
       );
+
+      
 }

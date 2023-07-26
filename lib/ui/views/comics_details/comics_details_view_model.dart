@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:my_trial_project/domain/api_client/api_client_exception.dart';
 import 'package:my_trial_project/domain/entity/comic.dart';
 import 'package:my_trial_project/domain/entity/comics/comic_date.dart';
 import 'package:my_trial_project/domain/entity/comics/creator_summary.dart';
@@ -290,8 +291,8 @@ class ComicDetailsViewModel extends ChangeNotifier {
       _updateDataOfComic(_comicDetails);
       _loadSeriesOfComic();
       notifyListeners();
-    } catch (e) {
-      print('smth bad happened');
+    } on ApiClientException catch (e) {
+      _handleApiClientException(e);
     }
   }
 
@@ -304,8 +305,21 @@ class ComicDetailsViewModel extends ChangeNotifier {
       final mapOfResponse = comicsFromResponse.map(_makeSeriesData).toList();
       _seriesOfComic.addAll(mapOfResponse);
       notifyListeners();
-    } catch (e) {
-      print('smth bad with series happened');
+    } on ApiClientException catch (e) {
+      _handleApiClientException(e);
+    }
+  }
+
+  void _handleApiClientException(
+    ApiClientException exeption,
+  ) {
+    switch (exeption.type) {
+      case ApiClientExceptionType.network:
+        print(exeption);
+        break;
+      case ApiClientExceptionType.other:
+        print(exeption);
+        break;
     }
   }
 }
